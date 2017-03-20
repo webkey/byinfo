@@ -56,9 +56,9 @@ gulp.task('sassCompilation', ['compressNormalizeCss'], function () { // Созд
   return gulp.src('src/sass/**/*.+(scss|sass)') // Берем источник
     .pipe(sourcemaps.init())
     .pipe(sass({
-      // outputStyle: 'expanded', // nested (default), expanded, compact, compressed
-      // indentType: 'tab',
-      // indentWidth: 1
+      outputStyle: 'expanded', // nested (default), expanded, compact, compressed
+      indentType: 'tab',
+      indentWidth: 1
       // пока эти параметры заменены на csscomb()
       // на мой взгляд csscomb() более пластичны
       // но и тот и другой почему-то неправильно компилирует сложные селекторы,
@@ -70,7 +70,7 @@ gulp.task('sassCompilation', ['compressNormalizeCss'], function () { // Созд
     ], {
       cascade: true
     }))
-    .pipe(csscomb())
+    // .pipe(csscomb())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./src/css')) // Выгружаем результата в папку src/css
     .pipe(browserSync.reload({

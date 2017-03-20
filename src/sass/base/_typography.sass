@@ -227,7 +227,7 @@ button
 		width: 0
 		border: solid transparent
 		border-width: 5px 9px
-		border-left-color: $mark-color
+		border-left-color: $text-color-alt
 		box-sizing: border-box
 
 	//ul > li:first-child:before
@@ -246,7 +246,7 @@ button
 			display: inline-block
 			text-align: left
 			+font-title
-			color: $mark-color
+			color: $text-color-alt
 			content: counter(section)
 			padding: 0 4px 0 0
 			min-width: 30px
@@ -287,17 +287,16 @@ button
 	//	border-width: 4px
 	//	border-radius: 50%
 
-	//list reset
-	.list-reset
-		list-style: none
-		margin: 0
+//list reset
+.reset-list, .#{$user-content} .reset-list
+	list-style: none
 
-		li,
-		li:first-child
-			padding: 0
+	li, li:first-child
+		padding: 0
 
-			&:before
-				content: none
+		&:before
+			content: none
+
 /*list end*/
 
 /*table*/
@@ -549,7 +548,7 @@ textarea
 	height: 1.8em
 	width: 100%
 	margin-bottom: -1.8em
-	+ellipsis
+	+truncate(100%)
 
 .success-text
 	color: $color-form-success
@@ -1011,7 +1010,7 @@ input[type="radio"]
 
 		.select-text
 			display: block
-			+ellipsis
+			+truncate(100%)
 			min-height: 20px
 
 /*multiselect menu*/
@@ -1079,95 +1078,6 @@ div.cselect
 /*multiselect menu end*/
 /*select end*/
 /*FORM STYLE end*/
-
-/*download files items*/
-/*depict files*/
-[class|="depict-files"],
-[class*=" depict-files-"]
-	background: url(../../img/sprite-files.png) 0 0 no-repeat
-	display: inline-block
-	vertical-align: top
-
-.depict-files
-	&-pdf
-		background-position: 0 0
-		width: 39px
-		height: 46px
-
-	&-xls
-		background-position: 0 -66px
-		width: 39px
-		height: 46px
-
-	&-doc
-		background-position: 0 -132px
-		width: 39px
-		height: 46px
-
-	&-zip
-		background-position: 0 -198px
-		width: 39px
-		height: 46px
-
-	&-jpg
-		background-position: 0 -264px
-		width: 39px
-		height: 46px
-
-/*depict files end*/
-
-/*files item*/
-.files
-	padding: 0 0 20px
-	margin-left: -30px
-	font-size: 0
-	line-height: 1
-	letter-spacing: -4px
-
-	&-item
-		font-size: $font-size
-		line-height: $line-height
-		letter-spacing: normal
-
-	& .files-item
-		display: inline-block
-		vertical-align: top
-		width: 33.29%
-		padding: 0 0 48px 30px
-
-.file
-	font-size: 14px
-	line-height: 18px
-	padding: 0 0 0 53px
-	position: relative
-	min-height: 46px
-
-	&__title
-		padding: 5px 0 7px
-
-	&__title a
-		text-decoration: none
-		margin: 0 0 0 -53px
-		display: inline-block
-		padding: 0 0 0 53px
-
-	&__title a span
-		padding-top: 5px
-		text-decoration: underline
-
-	.no-touchevents & a:hover span
-		text-decoration: none
-
-	& [class*="depict-files-"]
-		position: absolute
-		left: 0
-		top: 0
-
-	&__info
-		color: #666
-
-/*files item end*/
-/*download files items end*/
 
 /*view print*/
 .view-print

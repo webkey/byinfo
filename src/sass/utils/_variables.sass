@@ -9,21 +9,23 @@ $line-height: 3.0rem/$font-size !default
 $bottom-space: $font-size * $line-height !default
 
 // цвет фона страницы
-$bg-color: oldlace !default
+$bg-color: white !default
 // цвет остовного текста
-$text-color: #262626 !default
+$text-color: black !default
 // цвет основных заголовков заголовков
 $title-color: black !default
 // цвет текста светлее основного
-$text-color-light: #262626 !default
+$text-color-light: #808080 !default
 // цвет для выделения текста
-$text-color-alt: tomato !default
-// цвет ссылки
-$link-color: blue !default
+$text-color-alt: #019875 !default
+// цвет ссылок
+$link-color: #019875 !default
 // цвет линий и границ
-$border-color: lightgray !default
+$border-color: #d9d9d9 !default
 // цвет специальных элементов
 $mark-color: tomato !default
+// цвет ошибок
+$error-color: red !default
 
 // user content class
 // class на контейнере, в котором будет использоваться стилизация
@@ -34,10 +36,10 @@ $user-content: user-content !default
 // максимальная ширина сайта
 $layout-width: 1920px !default
 // отступы слева и справа для всего сайта
-$layout-space-horizontal: 2rem !default
+$layout-space-horizontal: 0 !default
 
 // form
-$color-form-text: $text-color-light !default
+$color-form-text: #262626 !default
 $color-form-placeholder: lightgray !default
 $color-form-bg: white !default
 $color-form-border: lightgray !default
@@ -46,21 +48,17 @@ $color-form-error: red !default
 $color-form-success: green !default
 $space-bottom-form: 3rem !default
 
-// btn
-$color-btn-bg: tomato !default
-$color-btn-bg-hover: darken($color-btn-bg, 20%) !default
+// buttons
+$color-btn-bg: $text-color-alt !default
+$color-btn-bg-hover: darken($color-btn-bg, 10%) !default
 $color-btn-text: white !default
 
 // table color
-$color-table-text: $text-color-light !default
-$color-table-border: tomato !default
+$color-table-text: #262626 !default
+$color-table-border: $text-color-alt !default
 $color-table-bg: white !default
 $color-table-text-alt: white !default
-$color-table-bg-alt: tomato !default
-
-// animation
-$animation-speed: 0.2s !default
-$animation-speed-mouseleave: 0.35s !default
+$color-table-bg-alt: $text-color-alt !default
 
 // animation
 $animation-speed: 0.2s !default

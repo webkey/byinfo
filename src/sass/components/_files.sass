@@ -1,0 +1,42 @@
+/*download files items*/
+/*files item*/
+.file
+	display: inline-block
+	vertical-align: top
+	$file-icon-size: 32px
+	font-size: 1.6rem
+	line-height: 1.4
+	text-decoration: none
+	+clear
+
+	.no-touchevents &:hover svg
+
+		.st1
+			fill: lighten($text-color-alt, 5%)
+
+		text-decoration: underline
+
+	svg
+		float: left
+		margin-top: 0.3em
+		margin-bottom: -0.3em
+		+size($file-icon-size)
+
+	.st1
+		fill: $text-color-alt
+
+	.st0
+		fill: darken($text-color-alt, 10%)
+
+	& > span, & > em
+		display: block
+		margin-left: #{$file-icon-size}
+		padding-left: 0.5em
+
+	& > em
+		display: block
+		font-size: 1.4rem
+		color: $text-color-light
+
+/*files item end*/
+/*download files items end*/
