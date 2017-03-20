@@ -7,7 +7,7 @@
 	&:before
 		content: ''
 		position: absolute
-		left: $layout-width
+		left: $page-max-width
 		top: 0
 		bottom: 0
 		width: 40px
@@ -15,8 +15,8 @@
 		box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15)
 
 .max-wrap
-	max-width: $layout-width
-	+padding(null, $layout-space-horizontal, null, $layout-space-horizontal)
+	max-width: $page-max-width
+	+padding-horizontal($page-space-horizontal)
 	+push-auto
 
 .page
@@ -32,12 +32,13 @@
 	+clear
 
 .visual
-	float: left
+	position: fixed
+	bottom: 0
 	min-height: 100%
-	width: $visual-width
+	width: calc((100% - #{$sidebar-width})/2)
 
 .content
-	margin: 0 0 $bottom-space
+	+margin-vertical($bottom-space)
 	background-color: white
 
 	.visual ~ &
@@ -48,7 +49,7 @@
 	top: 0
 	z-index: 5
 	width: calc(100% - #{$sidebar-width})
-	max-width: #{$layout-width - $sidebar-width}
+	max-width: #{$page-max-width - $sidebar-width}
 	height: $header-height
 	background-color: white
 	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15)
@@ -65,12 +66,21 @@
 
 .footer
 	position: relative
-	clear: both
+	height: 0
 	z-index: 5
+
+.footer__holder
+	position: absolute
+	left: $visual-width
+	bottom: 0
+	right: 0
 
 	background-color: lightgreen
 
 .user-section
 	margin-bottom: $bottom-space
+
+.layout
+	+padding-horizontal($layout-space-horizontal)
 
 /*LAYOUT end*/

@@ -73,7 +73,7 @@ function fixedHeader(){
  * !footer at bottom
  * */
 function footerBottom() {
-	var $footer = $('.footer');
+	var $footer = $('.footer__holder');
 
 	if ($footer.length) {
 		$('.main').after($('<div class="spacer"></div>'));

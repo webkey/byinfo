@@ -79,135 +79,255 @@ $grid-space: 20px !default
 	-ms-user-select: none
 	user-select: none
 
-/// Помощник для сброса внутреннего обтекания
-/// @author Николас Галлагер
-/// @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
+/**
+ * Помощник для сброса внутреннего обтекания
+ * @author Николас Галлагер
+ * @link http://nicolasgallagher.com/micro-clearfix-hack/ Micro Clearfix
+ */
 =clear()
 	&::after
 		content: ''
 		display: table
 		clear: both
-
-/// Обрезает текст и добавляет троеточие
+		
+/**
+ * Обрезает текст и добавляет троеточие
+ */
 =truncate($truncation-boundary: 320px)
 	max-width: $truncation-boundary
 	white-space: nowrap
 	text-overflow: ellipsis
 	overflow: hidden
 
-/// Примесь позволяет определять `width` и `height` одновременно.
-///
-/// @author Hugo Giraudel
-///
-/// @access public
-///
-/// @param {Length} $width - `width` элемента
-/// @param {Length} $height ($width) - `height` элемента
-///
-/// @example Sass - Использование
-/// .foo
-///   +size(10em)
-///
-/// .bar
-///   +size(100%, 10em
-///
-/// @example css - Вывод CSS
-/// .foo {
-///   width: 10em;
-///   height: 10em;
-/// }
-///
-/// .bar {
-///   width: 100%;
-///   height: 10em;
-/// }
+/**
+ * Примесь позволяет определять `width` и `height` одновременно.
+ *
+ * @author Hugo Giraudel
+ *
+ * @access public
+ *
+ * @param {Length} $width - `width` элемента
+ * @param {Length} $height ($width) - `height` элемента
+ *
+ * @example Sass - Использование
+ * .foo
+ *   +size(10em)
+ *
+ * .bar
+ *   +size(100%, 10em
+ *
+ * @example css - Вывод CSS
+ * .foo {
+ *   width: 10em;
+ *   height: 10em;
+ * }
+ *
+ * .bar {
+ *   width: 100%;
+ *   height: 10em;
+ * }
+ */
 =size($width, $height: $width)
 	width: $width
 	height: $height
 
-/// Примесь формирует `padding` в развернутом виде.
-///
-/// @author Astronim*
-///
-/// @access public
-///
-/// @param {Length} $top - верхний `padding` элемента
-/// @param {Length} $right - правый `padding` элемента
-/// @param {Length} $bottom - нижний `padding` элемента
-/// @param {Length} $left - левый `padding` элемента
-///
-/// @example Sass - Использование
-///
-/// .foo
-///   +padding(20px, null, 10px, 30px)
-///
-/// @example css - Вывод CSS
-///
-/// .foo {
-///   padding-top: 20px;
-///   padding-bottom: 10px;
-///   padding-left: 30px;
-/// }
-=padding($top, $right, $bottom, $left)
+/**
+ * Примесь добавляет горизонтальные внутренние отстпупы (`padding`) в развернутом виде.
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {Length} $left - левый `padding` элемента
+ * @param {Length} $right - правый `padding` элемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +padding-horizontal(20px)
+ *
+ * .foo
+ *   +padding-horizontal(20px, 10px)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   padding-left: 20px;
+ *   padding-right: 20px;
+ * }
+ *
+ * .foo {
+ *   padding-left: 20px;
+ *   padding-right: 10px;
+ * }
+ */
+=padding-horizontal($left, $right: $left)
 	padding:
-		top: $top
 		right: $right
-		bottom: $bottom
 		left: $left
 
-/// Примесь центрирует блочный элемент с ограниченной шириной.
-///
-/// @author Astronim*
-///
-/// @access public
-///
-/// @example Sass - Использование
-///
-/// .foo
-///   +push-auto
-///
-/// @example css - Вывод CSS
-///
-/// .foo {
-///   margin-left: auto;
-///   margin-right: auto;
-/// }
+/**
+ * Примесь добавляет вертикальные внутренние отстпупы (`padding`) в развернутом виде.
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {Length} $top - верхний `padding` элемента
+ * @param {Length} $bottom - нижний `padding` элемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +padding-vertical(20px)
+ *
+ * .foo
+ *   +padding-vertical(20px, 10px)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   padding-top: 20px;
+ *   padding-bottom: 20px;
+ * }
+ *
+ * .foo {
+ *   padding-top: 20px;
+ *   padding-bottom: 10px;
+ * }
+ */
+=padding-vertical($top, $bottom:$top)
+	padding:
+		top: $top
+		bottom: $bottom
+
+/**
+ * Примесь добавляет горизонтальные внешние отстпупы (`margin`) в развернутом виде.
+ * 
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {Length} $left - левый `margin` элемента
+ * @param {Length} $right - правый `margin` элемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +margin-horizontal(20px)
+ *
+ * .foo
+ *   +margin-horizontal(20px, 10px)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   margin-left: 20px;
+ *   margin-right: 20px;
+ * }
+ *
+ * .foo {
+ *   margin-left: 20px;
+ *   margin-right: 10px;
+ * }
+ */
+=margin-horizontal($left, $right: $left)
+	margin:
+		right: $right
+		left: $left
+
+/**
+ * Примесь добавляет вертикальные внешние отстпупы (`margin`) в развернутом виде.
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {Length} $top - верхний `margin` элемента
+ * @param {Length} $bottom - нижний `margin` элемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +margin-vertical(20px)
+ *
+ * .foo
+ *   +margin-vertical(20px, 10px)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   margin-top: 20px;
+ *   margin-bottom: 20px;
+ * }
+ *
+ * .foo {
+ *   margin-top: 20px;
+ *   margin-bottom: 10px;
+ * }
+ */
+=margin-vertical($top, $bottom:$top)
+	margin:
+		top: $top
+		bottom: $bottom
+
+/**
+ * Примесь центрирует блочный элемент с ограниченной шириной.
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +push-auto
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   margin-left: auto;
+ *   margin-right: auto;
+ * }
+ */
 =push-auto()
 	margin:
 		left: auto
 		right: auto
 
-/// Примесь добавляет к псевдоэлементу базовые свойства.
-///
-/// @author Astronim*
-///
-/// @access public
-///
-/// @param {String} $content [''] - контент псевдоэлемента
-/// @param {String} $display [block] - тип псевдоэлемента
-/// @param {String} $pos [absolute] - позицирование псевдоэлемента
-///
-/// @example Sass - Использование
-///
-/// .foo
-///   +pseudo()
-///
-/// .foo
-///   +pseudo(attr(data), inline-block, relative)
-///
-/// @example css - Вывод CSS
-///
-/// .foo {
-///   content: '';
-///   display: block;
-///   position: absolute;
-/// }
-///
-/// .foo {
-///   content: attr(data);
-///   display: inline-block;
-///   position: relative;
-/// }
+/**
+ * Примесь добавляет к псевдоэлементу базовые свойства.
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {String} $content [''] - контент псевдоэлемента
+ * @param {String} $display [block] - тип псевдоэлемента
+ * @param {String} $pos [absolute] - позицирование псевдоэлемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +pseudo()
+ *
+ * .foo
+ *   +pseudo(attr(data), inline-block, relative)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   content: '';
+ *   display: block;
+ *   position: absolute;
+ * }
+ *
+ * .foo {
+ *   content: attr(data);
+ *   display: inline-block;
+ *   position: relative;
+ * }
+ */
 =pseudo($content: '', $display: block, $pos: absolute)
 	content: $content
 	display: $display
@@ -256,11 +376,13 @@ $grid-space: 20px !default
 // =============================================================================
 // Leaner gradient -vendor
 // =============================================================================
-/// Convert angle
-/// @author Chris Eppstein
-/// @param {Number} $value - Value to convert
-/// @param {String} $unit - Unit to convert to
-/// @return {Number} Converted angle
+/**
+ * Convert angle
+ * @author Chris Eppstein
+ * @param {Number} $value - Value to convert
+ * @param {String} $unit - Unit to convert to
+ * @return {Number} Converted angle
+ */
 @function convert-angle($value, $unit)
 	$convertable-units: deg grad turn rad
 	$conversion-factors: 1 (10grad / 9deg) (1turn / 360deg) (3.14159rad / 180deg)
@@ -270,19 +392,23 @@ $grid-space: 20px !default
 
 	@warn "Cannot convert `#{unit($value)}` to `#{$unit}`."
 
-/// Test if `$value` is an angle
-/// @param {*} $value - Value to test
-/// @return {Bool}
+/**
+ * Test if `$value` is an angle
+ * @param {*} $value - Value to test
+ * @return {Bool}
+ */
 @function is-direction($value)
 	$is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value)
 	$is-angle: type-of($value) == "number" and index("deg" "grad" "turn" "rad", unit($value))
 
 	@return $is-direction or $is-angle
 
-/// Convert a direction to legacy syntax
-/// @param {Keyword | Angle} $value - Value to convert
-/// @require {function} is-direction
-/// @require {function} convert-angle
+/**
+ * Convert a direction to legacy syntax
+ * @param {Keyword | Angle} $value - Value to convert
+ * @require {function} is-direction
+ * @require {function} convert-angle
+ */
 @function legacy-direction($value)
 	@if is-direction($value) == false
 		@warn "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be an angle or a direction"
@@ -294,12 +420,14 @@ $grid-space: 20px !default
 
 	@return 90deg - convert-angle($value, "deg")
 
-/// Mixin printing a linear-gradient
-/// as well as a plain color fallback
-/// and the `-webkit-` prefixed declaration
-/// @access public
-/// @param {String | List | Angle} $direction - Linear gradient direction
-/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+/**
+ * Mixin printing a linear-gradient
+ * as well as a plain color fallback
+ * and the `-webkit-` prefixed declaration
+ * @access public
+ * @param {String | List | Angle} $direction - Linear gradient direction
+ * @param {Arglist} $color-stops - List of color-stops composing the gradient
+ */
 =linear-gradient($direction, $color-stops...)
 	@if is-direction($direction) == false
 		$color-stops: $direction, $color-stops

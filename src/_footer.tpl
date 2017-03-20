@@ -1,7 +1,7 @@
 <!--FOOTER-->
 <footer class="footer">
-	<div class="layout">
-		<div class="footer__holder">
+	<div class="footer__holder">
+		<div class="layout">
 			<!--footer bottom-->
 			<div class="footer-bottom">
 				<div class="footer-bottom__holder">
