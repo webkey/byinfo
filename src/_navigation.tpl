@@ -1,5 +1,6 @@
 <!-- @@if(mainNavItemActive === "biography"){ current} -->
 <!-- @@if(mainNavItemActive === "biography"){ class="current"} -->
+<!--NAVIGATION-->
 <nav class="nav">
 	<ul class="nav__list">
 		<li class="has-drop@@if(mainNavItemActive === "Главная"){ current}">
@@ -68,3 +69,4 @@
 		</li>
 	</ul>
 </nav>
+<!--NAVIGATION end-->

@@ -104,14 +104,12 @@ $grid-space: 20px !default
 /// @param {Length} $width - `width` элемента
 /// @param {Length} $height ($width) - `height` элемента
 ///
-/// @example scss - Использование
-/// .foo {
-///   +size(10em);
-/// }
+/// @example Sass - Использование
+/// .foo
+///   +size(10em)
 ///
-/// .bar {
-///   +size(100%, 10em);
-/// }
+/// .bar
+///   +size(100%, 10em
 ///
 /// @example css - Вывод CSS
 /// .foo {
@@ -127,20 +125,94 @@ $grid-space: 20px !default
 	width: $width
 	height: $height
 
-// Padding longhand version
+/// Примесь формирует `padding` в развернутом виде.
+///
+/// @author Astronim*
+///
+/// @access public
+///
+/// @param {Length} $top - верхний `padding` элемента
+/// @param {Length} $right - правый `padding` элемента
+/// @param {Length} $bottom - нижний `padding` элемента
+/// @param {Length} $left - левый `padding` элемента
+///
+/// @example Sass - Использование
+///
+/// .foo
+///   +padding(20px, null, 10px, 30px)
+///
+/// @example css - Вывод CSS
+///
+/// .foo {
+///   padding-top: 20px;
+///   padding-bottom: 10px;
+///   padding-left: 30px;
+/// }
 =padding($top, $right, $bottom, $left)
-	padding-top: $top
-	padding-right: $right
-	padding-bottom: $bottom
-	padding-left: $left
+	padding:
+		top: $top
+		right: $right
+		bottom: $bottom
+		left: $left
 
-// =============================================================================
-// Transform -vendor
-// =============================================================================
-=transform($param...)
-	-webkit-transform: $param
-	-ms-transform: $param
-	transform: $param
+/// Примесь центрирует блочный элемент с ограниченной шириной.
+///
+/// @author Astronim*
+///
+/// @access public
+///
+/// @example Sass - Использование
+///
+/// .foo
+///   +push-auto
+///
+/// @example css - Вывод CSS
+///
+/// .foo {
+///   margin-left: auto;
+///   margin-right: auto;
+/// }
+=push-auto()
+	margin:
+		left: auto
+		right: auto
+
+/// Примесь добавляет к псевдоэлементу базовые свойства.
+///
+/// @author Astronim*
+///
+/// @access public
+///
+/// @param {String} $content [''] - контент псевдоэлемента
+/// @param {String} $display [block] - тип псевдоэлемента
+/// @param {String} $pos [absolute] - позицирование псевдоэлемента
+///
+/// @example Sass - Использование
+///
+/// .foo
+///   +pseudo()
+///
+/// .foo
+///   +pseudo(attr(data), inline-block, relative)
+///
+/// @example css - Вывод CSS
+///
+/// .foo {
+///   content: '';
+///   display: block;
+///   position: absolute;
+/// }
+///
+/// .foo {
+///   content: attr(data);
+///   display: inline-block;
+///   position: relative;
+/// }
+=pseudo($content: '', $display: block, $pos: absolute)
+	content: $content
+	display: $display
+	position: $pos
+
 
 // =============================================================================
 // Hide text for screen reader
@@ -179,7 +251,7 @@ $grid-space: 20px !default
 // =============================================================================
 =btn-active()
 	&:active
-		+transform(scale(0.95))
+		transform: scale(0.95)
 
 // =============================================================================
 // Leaner gradient -vendor

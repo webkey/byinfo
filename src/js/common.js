@@ -1,5 +1,5 @@
 /**
- * resize only width
+ * !resize only width
  * */
 var resizeByWidth = true;
 
@@ -15,7 +15,7 @@ $(window).resize(function () {
 /*resize only width end*/
 
 /**
- * device detected
+ * !device detected
  * */
 var DESKTOP = device.desktop();
 //console.log('DESKTOP: ', DESKTOP);
@@ -26,7 +26,7 @@ var TABLET = device.tablet();
 /*device detected end*/
 
 /**
- *  placeholder
+ *  !placeholder
  *  */
 function placeholderInit() {
 	$('[placeholder]').placeholder();
@@ -34,7 +34,7 @@ function placeholderInit() {
 /*placeholder end*/
 
 /**
- * print
+ * !print
  * */
 function printShow() {
 	$('.view-print').on('click', function (e) {
@@ -43,6 +43,31 @@ function printShow() {
 	})
 }
 /*print end*/
+
+/**
+ * !fixed header
+ * */
+function fixedHeader(){
+	// external js:
+	// 1) resizeByWidth (resize only width);
+
+	var $fixedElement = $('.header');
+
+	if ( $fixedElement.length ) {
+		var $page = $('html'),
+			$parent = $fixedElement.parent(),
+			$window = $(window);
+
+		$window.on('load resizeByWidth scroll', function () {
+
+			var minScrollTop = $parent.offset().top;
+			var currentScrollTop = $window.scrollTop();
+
+			$page.toggleClass('header-fixed', (currentScrollTop > minScrollTop));
+		})
+	}
+}
+/*fixed header end*/
 
 /**
  * !footer at bottom
@@ -64,9 +89,9 @@ function footerBottom() {
 		function layoutFooter() {
 			// var footerHeight = $('.footer__holder', $footer).outerHeight();
 			var footerHeight = $($footer).outerHeight();
-			$footer.css({
-				'margin-top': -footerHeight
-			});
+			// $footer.css({
+			// 	'margin-top': -footerHeight
+			// });
 
 			$('.spacer').css({
 				'height': footerHeight
@@ -81,6 +106,7 @@ function footerBottom() {
 $(document).ready(function () {
 	placeholderInit();
 	printShow();
+	fixedHeader();
 
 	footerBottom();
 });

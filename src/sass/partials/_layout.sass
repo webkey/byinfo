@@ -1,66 +1,76 @@
 /*LAYOUT*/
 .wrapper
-	margin: 0 auto
-	//min-height: 100%
-	//height: auto !important
-	//height: 100%
-	min-height: 100vh
 	overflow: hidden
 	position: relative
+	+push-auto
+
+	&:before
+		content: ''
+		position: absolute
+		left: $layout-width
+		top: 0
+		bottom: 0
+		width: 40px
+		margin-left: -40px
+		box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15)
+
+.max-wrap
+	max-width: $layout-width
+	+padding(null, $layout-space-horizontal, null, $layout-space-horizontal)
+	+push-auto
+
+.page
+	margin-left: $sidebar-width
+
+.cross
+	position: relative
+	min-height: 100vh
 
 .main
-	padding: 30px 0 0
-	position: relative
-	clear: both
-	z-index: 4
-
-.main__holder
-	width: 100%
+	padding-top: $header-height
+	min-height: 100%
 	+clear
 
-.content-wrap
+.visual
 	float: left
-	width: 100%
+	min-height: 100%
+	width: $visual-width
 
 .content
-	margin: 0 260px $bottom-space 340px
-	min-height: 50px
+	margin: 0 0 $bottom-space
+	background-color: white
 
-	background-color: whitesmoke
+	.visual ~ &
+		margin-left: $visual-width
 
 .header
-	position: relative
+	position: fixed
+	top: 0
 	z-index: 5
-
-	background-color: lightgreen
+	width: calc(100% - #{$sidebar-width})
+	max-width: #{$layout-width - $sidebar-width}
+	height: $header-height
+	background-color: white
+	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15)
+	transition-property: box-shadow, border-color, height, padding-top
+	transition-duration: $animation-speed
 
 .sidebar
-	display: inline
-	float: left
-	margin: 0 0 0 -100%
-	width: 320px
-
-	background-color: sandybrown
-
-.aside
-	display: inline
-	float: right
-	margin: 0 0 0 -240px
-	width: 240px
-
-	background-color: sandybrown
+	position: fixed
+	left: 0
+	top: 0
+	min-height: 100vh
+	width: $sidebar-width
+	background-color: $sidebar-bg-color
 
 .footer
-	margin: 0 auto
 	position: relative
 	clear: both
 	z-index: 5
 
 	background-color: lightgreen
 
-.layout
-	max-width: $layout-width
-	padding: 0 $layout-space-horizontal
-	margin: 0 auto
+.user-section
+	margin-bottom: $bottom-space
 
 /*LAYOUT end*/

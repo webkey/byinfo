@@ -1,3 +1,4 @@
+<!--FOOTER-->
 <footer class="footer">
 	<div class="layout">
 		<div class="footer__holder">
@@ -23,3 +24,4 @@
 		</div>
 	</div>
 </footer>
+<!--FOOTER end-->

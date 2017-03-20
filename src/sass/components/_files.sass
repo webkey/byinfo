@@ -3,18 +3,15 @@
 .file
 	display: inline-block
 	vertical-align: top
+	padding: 0.5em
 	$file-icon-size: 32px
 	font-size: 1.6rem
 	line-height: 1.4
 	text-decoration: none
 	+clear
 
-	.no-touchevents &:hover svg
-
-		.st1
-			fill: lighten($text-color-alt, 5%)
-
-		text-decoration: underline
+	.no-touchevents &:hover
+		box-shadow: inset 0 0 0 1px $border-color
 
 	svg
 		float: left
@@ -22,16 +19,22 @@
 		margin-bottom: -0.3em
 		+size($file-icon-size)
 
-	.st1
-		fill: $text-color-alt
+	.st-bg
+		fill: #e2e5e7
 
-	.st0
-		fill: darken($text-color-alt, 10%)
+	.st-corner
+		fill: #b0b7bd
+
+	.st-shadow
+		fill: #cad1d8
+
+	.st-text
+		fill: white
 
 	& > span, & > em
 		display: block
 		margin-left: #{$file-icon-size}
-		padding-left: 0.5em
+		padding-left: 1em
 
 	& > em
 		display: block
