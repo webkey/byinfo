@@ -19,10 +19,36 @@ h1, h2, h3, h4, h5, h6
 	color: $title-color
 
 h1
-	font-size: 4.0rem
-	line-height: 1.2
+	$h1-font-size: 6.0rem
+	font-family: $font-alt
+	font-weight: 700
+	font-size: $h1-font-size
+	color: $sidebar-bg-color
+	text-align: center
+	line-height: (6.0rem/$h1-font-size)
+	margin-bottom: 1em
+
+	.#{$user-content} &
+		position: relative
+		
+		&::after
+			+pseudo()
+			left: 0
+			top: 0
+			width: 100%
+			height: 100%
+			background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEsAAABLCAYAAAA4TnrqAAACW0lEQVR4nO3ZQU7jUAyA4Z/RMJtZs/cN4Ag9+hwBbuA9N4BFZ5GYhJI2z8kz5CX+paoSizj6pJb0+e58Pp/Iivrdv/8LnCH9K3IGwAnQ/hXSr6gL9wnwEDxj3EM/M6RILKG7+ZfAGZc9EwgWhSUMUG9BM6Z6JxAsAkv4GSgrDKw2lvCzUFYIWE0sYRtQVnWwWljCtqCsqmA1sITuZp7ZFpRVDWwtljBAva+8VmRVwNZgCW1AWavBlmIJbUFZq8CWYAltQlmLwbxYQttQ1iIwD5awDyjLDVaKJewLynKBlWAJ+4SyisHmsIR9Q1lFYLewhGNAWbNg17CEY0FZN8GmsIRjQllXwS6xhGNDWZNgYywhocZ9AbNVmJBQUxnYE8BdLlnL+44lK3QL0OZnRC9Zd1ViOUosR4nlKLEcJZajxHKUWI4Sy1FiOUosR4nlKLEcJZajxHKUWI4Sy1FiOUosR4nlKLEcJZajxHKUS1ZHtmRVYtf3J9pdst7Tre9f7WOowGv/x/uAga32AQXo+DtLSbBxn6Dg6xe8kmAwAQXT/w2VY4NNQsH1RwflmGBXoeD2c5ZyLLCbUDD/UKocA2wWCsqe4JV9gxVBQfnPHWWfYMVQ4PttqOwLzAUF/h/Syj7A3FCw7NRBaRtsERQsP6JR2gRbDAXrzrOUtsBWQcH6wz+lDbDVUFDnpFTZNlgVKKh3rKxsE6waFNQ9g1e2BVYVCuovLJRtgFWHgpjtjjKA/Qm4/lwhUBC3ClO6m33ke8HCoGDY7kSk/ftj4IzLwqAgFguGm/4bPMcKgwL4D9eOxudTMi5sAAAAAElFTkSuQmCC')
+			pointer-events: none
+
+.pre-title
+	+font-bold
+	font-size: 1.4rem
+	line-height: 1.5
+	letter-spacing: 0.1em
+	color: #b2b2b2
+	text-align: center
+	text-transform: uppercase
 	margin-bottom: $bottom-space
-	overflow: hidden
 
 h2
 	font-size: 3.6rem

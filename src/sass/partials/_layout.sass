@@ -13,14 +13,15 @@
 		width: 40px
 		margin-left: -40px
 		box-shadow: 5px 0 25px rgba(0, 0, 0, 0.15)
+		z-index: -1
 
 .max-wrap
 	max-width: $page-max-width
 	+padding-horizontal($page-space-horizontal)
-	+push-auto
 
 .page
 	margin-left: $sidebar-width
+	background-color: white
 
 .cross
 	position: relative
@@ -31,14 +32,10 @@
 	min-height: 100%
 	+clear
 
-.visual
-	position: fixed
-	bottom: 0
-	min-height: 100%
-	width: calc((100% - #{$sidebar-width})/2)
+
 
 .content
-	+margin-vertical($bottom-space)
+	+margin-vertical($layout-space-horizontal)
 	background-color: white
 
 	.visual ~ &
@@ -68,14 +65,6 @@
 	position: relative
 	height: 0
 	z-index: 5
-
-.footer__holder
-	position: absolute
-	left: $visual-width
-	bottom: 0
-	right: 0
-
-	background-color: lightgreen
 
 .user-section
 	margin-bottom: $bottom-space

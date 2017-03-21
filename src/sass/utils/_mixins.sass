@@ -309,20 +309,22 @@ $grid-space: 20px !default
  * @example Sass - Использование
  *
  * .foo
- *   +pseudo()
+ *   &::before
+ *     +pseudo()
  *
  * .foo
- *   +pseudo(attr(data), inline-block, relative)
+ *   &::before
+ *     +pseudo(attr(data), inline-block, relative)
  *
  * @example css - Вывод CSS
  *
- * .foo {
+ * .foo::before {
  *   content: '';
  *   display: block;
  *   position: absolute;
  * }
  *
- * .foo {
+ * .foo::before {
  *   content: attr(data);
  *   display: inline-block;
  *   position: relative;
@@ -332,6 +334,105 @@ $grid-space: 20px !default
 	content: $content
 	display: $display
 	position: $pos
+
+/**
+ * Примесь позволяет сохранять пропорции элементов при респонсиве
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {Number} $x [1] - ширина в пропорциональном соотношении
+ * @param {Number} $y [1] - высота в пропорциональном соотношении
+ * @param {Boolean} $pseudo [false] - указывает добавлять псевдоэлемент или
+ * использовать `padding` самого элемента
+ *
+ * @example Sass - Использование
+ *
+ * .foo
+ *   +responsive-ratio(1)
+ *
+ * .foo
+ *   +responsive-ratio(16, 9)
+ *
+ * .foo
+ *   +responsive-ratio(4, 3, true)
+ *
+ * @example css - Вывод CSS
+ *
+ * .foo {
+ *   padding-top: 100%
+ * }
+ *
+ * .foo {
+ *   padding-top: 56.25%
+ * }
+ *
+ * .foo::before {
+ *   content: "";
+ *   display: block;
+ *   position: relative;
+ *   height: 0;
+ *   width: 100%;
+ *   padding-top: 75%;
+ * }
+ */
+=ratio($x: 1, $y: 1, $pseudo: false, $overflow: hidden)
+	$padding: ($y / $x * 100%)
+
+	@if $pseudo
+
+		&::before
+			+pseudo($pos: relative)
+
+			height: 0
+			width: 100%
+			padding-top: $padding
+	@else
+		padding-top: $padding
+
+/**
+ * Примесь позволяет указывает изображению способ заполнения блока,
+ * в котором находится
+ * Для ie9 необходимо подключить скрипт и прописать дополнительные свойства
+ * @link https://medium.com/@primozcigler/neat-trick-for-css-object-fit-fallback-on-edge-and-other-browsers-afbc53bbb2c3#.e3eu6mvxl
+ *
+ * @author Astronim*
+ *
+ * @access public
+ *
+ * @param {String} $fit [cover] - метод заполнения
+ *
+ * @example Sass - Использование
+ *
+ * img.foo
+ *   +object-fit($fit: contain)
+ *
+ * @example css - Вывод CSS
+ *
+ * img.foo {
+ *   position: relative
+ *   top: 50%
+ *   left: 50%
+ *   max-width: none
+ *   width: auto
+ *   min-width: 100%
+ *   min-height: 100%
+ *   transform: translate(-50%, -50%)
+ *   object-fit: $fit
+ * }
+ */
+=object-fit($fit: cover)
+	position: relative
+	top: 50%
+	left: 50%
+	max-width: none
+	width: auto
+	min-width: 100%
+	min-height: 100%
+	transform: translate(-50%, -50%)
+	object-fit: $fit
+
 
 
 // =============================================================================
