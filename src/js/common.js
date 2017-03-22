@@ -1,4 +1,44 @@
 /**
+ * !blocked scroll
+ * */
+var docElem = window.document.documentElement,
+	didScroll,
+	scrollPosition;
+
+function noScrollFn() {
+	window.scrollTo( scrollPosition ? scrollPosition.x : 0, scrollPosition ? scrollPosition.y : 0 );
+}
+
+function noScroll() {
+	window.removeEventListener( 'scroll', scrollHandler );
+	window.addEventListener( 'scroll', noScrollFn );
+}
+
+function scrollFn() {
+	window.addEventListener( 'scroll', scrollHandler );
+}
+
+function canScroll() {
+	window.removeEventListener( 'scroll', noScrollFn );
+	scrollFn();
+}
+
+function scrollHandler() {
+	if( !didScroll ) {
+		didScroll = true;
+		setTimeout( function() { scrollPage(); }, 60 );
+	}
+}
+
+function scrollPage() {
+	scrollPosition = { x : window.pageXOffset || docElem.scrollLeft, y : window.pageYOffset || docElem.scrollTop };
+	didScroll = false;
+}
+
+scrollFn();
+/*blocked scroll end*/
+
+/**
  * !resize only width
  * */
 var resizeByWidth = true;
@@ -115,35 +155,48 @@ function objectFitFix() {
  * !language switcher behavior
  * */
 function languageBehavior() {
+	var $langContainer = $('.lang-js');
+	var langClassOpen = 'lang-opened';
 
-	$('.js-lang-open').on('click', function (e) {
+	$('.lang-open-js').on('click', function (e) {
 		e.preventDefault();
 
 		if ($('.search-form').length) {
 			$(document).trigger('closeSearchForm');
 		}
 
-		$(this).closest('.lang').toggleClass('lang-opened');
+		$(this).closest($langContainer).toggleClass(langClassOpen);
 
 		e.stopPropagation();
 	});
 
+	// close lang drop on document click
 	$(document).on('click closeDropLong', function () {
 		closeDropLong();
 	});
 
+	// close lang drop on esc key click
 	$(document).keyup(function(e) {
-		if ($('.lang').hasClass('lang-opened') && e.keyCode === 27) {
+		if ($langContainer.hasClass(langClassOpen) && e.keyCode === 27) {
 			closeDropLong();
 		}
 	});
 
+	// trigger event lang drop close
+	$($langContainer).on('langDropClose', function() {
+		if ($langContainer.hasClass(langClassOpen)) {
+			closeDropLong();
+		}
+	});
+
+	// do not close drop on click inside this drop
 	$('.lang__list').on('click', function (e) {
 		e.stopPropagation();
 	});
 
+	// close drop function
 	function closeDropLong() {
-		$('.lang').removeClass('lang-opened');
+		$($langContainer).removeClass(langClassOpen);
 	}
 }
 /*drop language end*/
@@ -169,6 +222,9 @@ function showFormSearch(){
 		// 	$searchForm.submit();
 		// 	return;
 		// }
+
+		// close lang drop
+		$('.lang-js').trigger('langDropClose');
 
 		if ($html.hasClass(classFormIsOpen)){
 			closeSearchForm($searchFormContainer);
@@ -217,6 +273,163 @@ function showFormSearch(){
 /*show form search end*/
 
 /**
+ * !multi accordion
+ * */
+(function ($) {
+	var MultiAccordion = function (settings) {
+		var options = $.extend({
+			collapsibleAll: false,
+			resizeCollapsible: false,
+			accordionContainer: null,
+			accordionItem: null,
+			handler: null,
+			collapsibleElement: null,
+			openClass: 'active',
+			animateSpeed: 300
+		}, settings || {});
+
+		this.options = options;
+		var container = $(options.accordionContainer);
+		this.$accordionContainer = container; //блок с аккордеоном
+		this.$accordionItem = $(options.accordionItem, container); //непосредственный родитель сворачиваемого элемента
+		this.$handler = $(options.handler, container); //элемент, по которому производим клик
+		this.collapsibleElement = options.collapsibleElement; //элемент, который сворачивается/разворачивается
+		this.$collapsibleElement = $(this.collapsibleElement); //элемент, который сворачивается/разворачивается
+		this._collapsibleAll = options.collapsibleAll;
+		this._animateSpeed = options.animateSpeed;
+		this.$totalCollapsible = $(options.totalCollapsible);//элемент, по клику на который сворачиваются все аккордены в наборе
+		this._resizeCollapsible = options.resizeCollapsible;//флаг, сворачивание всех открытых аккордеонов при ресайзе
+
+		this.modifiers = {
+			active: options.openClass,
+			current: 'current'
+		};
+
+		this.bindEvents();
+		this.totalCollapsible();
+		this.totalCollapsibleOnResize();
+
+	};
+
+	MultiAccordion.prototype.totalCollapsible = function () {
+		var self = this;
+		self.$totalCollapsible.on('click', function () {
+			self.$collapsibleElement.slideUp(self._animateSpeed, function () {
+				self.$accordionContainer.trigger('accordionChange');
+			});
+			self.$accordionItem.removeClass(self.modifiers.active);
+			self.$accordionItem.removeClass(self.modifiers.current);
+		})
+	};
+
+	MultiAccordion.prototype.totalCollapsibleOnResize = function () {
+		var self = this;
+		$(window).on('resize', function () {
+			if(self._resizeCollapsible){
+				self.$collapsibleElement.slideUp(self._animateSpeed, function () {
+					self.$accordionContainer.trigger('accordionChange');
+				});
+				self.$accordionItem.removeClass(self.modifiers.active);
+			}
+		});
+	};
+
+	MultiAccordion.prototype.bindEvents = function () {
+		var self = this,
+			modifiers = this.modifiers,
+			animateSpeed = this._animateSpeed,
+			$accordionContainer = this.$accordionContainer,
+			$anyAccordionItem = this.$accordionItem,
+			collapsibleElement = this.collapsibleElement,
+			$collapsibleElement = this.$collapsibleElement;
+
+		self.$handler.on('click', function (e) {
+			var current = $(this);
+			var currentAccordionItem = current.closest($anyAccordionItem);
+
+			if (!currentAccordionItem.has($collapsibleElement).length){
+				return;
+			}
+
+			e.preventDefault();
+
+			if (current.parent().prop('tagName') !== currentAccordionItem.prop('tagName')) {
+				current = current.parent();
+			}
+
+			if (current.siblings(collapsibleElement).is(':visible')){
+				currentAccordionItem.removeClass(modifiers.active).find($collapsibleElement).slideUp(animateSpeed, function () {
+					self.$accordionContainer.trigger('accordionChange');
+				});
+				// currentAccordionItem.removeClass(modifiers.current);
+				currentAccordionItem
+					.find($anyAccordionItem)
+					.removeClass(modifiers.active);
+				// .removeClass(modifiers.current);
+				return;
+			}
+
+
+			if (self._collapsibleAll){
+				var siblingContainers = $($accordionContainer).not(current.closest($accordionContainer));
+				siblingContainers.find($collapsibleElement).slideUp(animateSpeed, function () {
+					self.$accordionContainer.trigger('accordionChange');
+				});
+				siblingContainers
+					.find($anyAccordionItem)
+					.removeClass(modifiers.active);
+				// .removeClass(modifiers.current);
+			}
+
+			currentAccordionItem
+				.siblings()
+				.removeClass(modifiers.active)
+				.find($collapsibleElement)
+				.slideUp(animateSpeed, function () {
+					self.$accordionContainer.trigger('accordionChange');
+				});
+			// currentAccordionItem.siblings().removeClass(modifiers.current);
+			currentAccordionItem.siblings()
+				.find($anyAccordionItem)
+				.removeClass(modifiers.active);
+			// .removeClass(modifiers.current);
+
+			currentAccordionItem.addClass(modifiers.active);
+			current.siblings($collapsibleElement).slideDown(animateSpeed, function () {
+				self.$accordionContainer.trigger('accordionChange');
+			});
+		})
+	};
+
+	window.MultiAccordion = MultiAccordion;
+}(jQuery));
+
+function menuAccordionInit() {
+	var nav = '.nav-js';
+	if($(nav).length){
+		new MultiAccordion({
+			accordionContainer: nav,
+			accordionItem: 'li',
+			handler: '.nav-handler-js',
+			collapsibleElement: '.nav-drop-js',
+			openClass: 'is-open',
+			animateSpeed: 200
+		});
+	}
+}
+/*multi accordion end*/
+
+function blockedScrollOnPage() {
+	$('.sidebar, .visual').on('mouseenter', function () {
+		console.log(1);
+		noScroll();
+	}).on('mouseleave', function () {
+		console.log(2);
+		canScroll();
+	});
+}
+
+/**
  * !footer at bottom
  * */
 function footerBottom() {
@@ -257,6 +470,8 @@ $(document).ready(function () {
 	objectFitFix();
 	languageBehavior();
 	showFormSearch();
+	menuAccordionInit();
+	blockedScrollOnPage();
 
 	footerBottom();
 });

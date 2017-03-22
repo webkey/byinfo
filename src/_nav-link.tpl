@@ -1,1 +1,1 @@
-<a href="@@itemLink"@@if(context.specialValue){ class="@@specialValue"}><span>@@itemText</span></a>
+<div class="nav__tab"><a href="@@itemLink"@@if(context.specialValue){ class="@@specialValue"}><span>@@itemText</span></a><div class="nav__angle nav-handler-js"><i>&nbsp;</i></div></div>

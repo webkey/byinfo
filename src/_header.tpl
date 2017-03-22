@@ -4,8 +4,8 @@
 	<div class="header__holder">
 		<!--user options-->
 		<ul class="user-options">
-			<li class="user-options__item lang">
-				<a href="#" class="js-lang-open">
+			<li class="user-options__item lang lang-js">
+				<a href="#" class="lang-open-js">
 					<span>Eng</span>
 				</a>
 				<ul class="lang__list">

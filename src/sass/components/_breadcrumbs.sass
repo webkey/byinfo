@@ -47,6 +47,8 @@ $breadcrumbs-line-height: (($breadcrumbs-item-height/1px - 2) * 1px)
 		border: solid #d9d9d9
 		border-width: 1px 0 1px 1px
 		background-color: #f2f2f2
+		transition-property: background-color
+		transition-duration: $animation-speed
 
 		&::after, &::before
 			left: 100%
@@ -56,6 +58,8 @@ $breadcrumbs-line-height: (($breadcrumbs-item-height/1px - 2) * 1px)
 			height: 0
 			width: 0
 			position: absolute
+			transition-property: border-color
+			transition-duration: $animation-speed
 
 		&::after
 			border-color: rgba(242, 242, 242, 0)
@@ -71,5 +75,9 @@ $breadcrumbs-line-height: (($breadcrumbs-item-height/1px - 2) * 1px)
 
 		.no-touchevents &:hover
 			text-decoration: none
+			background-color: white
+
+			&::after
+				border-left-color: white
 
 /*breadcrumbs end*/

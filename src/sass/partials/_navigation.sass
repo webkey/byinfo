@@ -2,59 +2,202 @@
 .nav
 	position: relative
 
+// общие стили для главного списка навигации
 .nav__list
-	+clear
+	position: relative
+
+// общие стили для подменю навигации
+.nav__drop
+	position: relative
+	background-color: $sidebar-border-color
+	display: none
+
+// общие стили для пунктов навигации
+.nav__list
 
 	li
 		position: relative
 
-		&.has-drop
-			padding-right: 2rem
-
-			&:after
-				content: ''
-				position: absolute
-				right: 0.5rem
-				top: 1.2rem
-				height: 0
-				width: 0
-				border: 0 solid transparent
-
 	& > li
-		float: left
-		margin-right: 2rem
+		border-bottom: 1px solid $sidebar-border-color
 
-		&.has-drop:after
-			border-width: 8px 4px
-			border-top-color: tomato
+	.nav__tab
+		position: relative
 
-.nav__drop
-	position: absolute
-	left: 0
-	top: 100%
-	background-color: white
-	border: 1px solid $border-color
-	padding: 2rem
-	width: 320px
-	opacity: 0
-	visibility: hidden
-	z-index: 10
+	a
+		display: block
+		position: relative
+		color: white
+		text-decoration: none
+		transition-property: color, background-color
+		transition-duration: $animation-speed
+		+padding-horizontal($sidebar-inside-space)
+		+padding-vertical(24px)
+		z-index: 1
 
-	li:hover > &
-		opacity: 1
-		visibility: visible
+		&::before
+			content: ''
+			position: absolute
+			left: 0
+			top: 0
+			height: 100%
+			width: 100%
+			pointer-events: none
+			opacity: 0
+			visibility: hidden
+			transition-property: opacity, visibility
+			transition-duration: $animation-speed
+			transition-timing-function: ease-in-out
+			+linear-gradient(to right, #019875, #9800f9)
+			z-index: -1
 
-	li
-		margin-bottom: 1rem
+// стили для пунктов навигации, у которых есть подменю
+.nav__list li.has-drop > .nav__tab > a
+	padding-right: (round($sidebar-inside-space*2))
+
+// стили для пункта навигации текущей страницы
+.nav__list li
+
+	.no-touchevents &.current > .nav__tab, &.current > .nav__tab
+
+		a
+			color: white
+
+			&:hover
+				color: white
+
+			&:before
+				opacity: 1
+				visibility: visible
+
+// особые стили для пунктов навигации первого урованя
+.nav__list > li
+
+	& > .nav__tab a
+		+font-bold
 		font-size: 1.4rem
-		line-height: 1.5
+		line-height: 1.4
+		letter-spacing: 0.1em
+		text-transform: uppercase
+		background-color: $sidebar-bg-color
 
-		&.has-drop:after
-			border-width: 4px 8px
-			border-left-color: tomato
+		.no-touchevents &:hover
+			color: $text-color-alt
 
-	.nav__drop
-		top: 0
-		left: 100%
+	&.is-open > .nav__tab a
+		background-color: $sidebar-border-color
+
+// особые стили для пунктов навигации второго урованя
+.nav__drop
+
+	ul
+
+		// особые стили для пунктов навигации второго урованя
+		& > li > .nav__tab a
+			+padding-vertical(12px)
+			font-size: 1.6rem
+			line-height: 1.25
+			border-top: 1px solid rgba(0, 0, 0, 0.30)
+
+			.no-touchevents &:hover
+				color: $text-color-alt
+
+		// особые стили для пунктов навигации третьего урованя
+		ul
+
+			// особые стили для пунктов навигации второго урованя
+			& > li > .nav__tab a
+				+padding-horizontal(round($sidebar-inside-space*1.5))
+				font-size: 1.4rem
+				line-height: 1.2
+				color: #999
+
+				.no-touchevents &:hover
+					color: $text-color-alt
+
+			// особые стили для пунктов навигации четвертого урованя
+			ul
+
+				// особые стили для пунктов навигации второго урованя
+				& > li > .nav__tab a
+					+padding-horizontal(round($sidebar-inside-space*1.5))
+					font-size: 1.3rem
+					line-height: 1.3
+					background-color: darken($sidebar-bg-color, 9%)
+
+					.no-touchevents &:hover
+						color: $text-color-alt
+
+// стрелки в навигации
+.nav__angle
+	position: absolute
+	right: 0
+	top: 0
+	width: round($sidebar-inside-space*1.5)
+	height: 100%
+	border-left: 1px solid rgba(0, 0, 0, 0.30)
+	transition-property: transform
+	transition-duration: $animation-speed
+	z-index: 2
+	cursor: pointer
+	display: none
+
+	li.has-drop > .nav__tab > &
+		display: block
+
+	i
+		position: absolute
+		left: 50%
+		top: 50%
+		width: 12px
+		height: 8px
+		pointer-events: none
+		margin: -4px 0 0 -6px
+		transition-property: transform
+		transition-duration: $animation-speed
+		font-size: 0
+		line-height: 0
+
+		&::before, &::after
+			content: ''
+			position: absolute
+			bottom: 0
+			height: 10px
+			width: 2px
+			border-radius: 2px
+			backface-visibility: hidden
+			background-color: #8a8b8c
+			transform-origin: center center
+			transition-property: background-color
+			transition-duration: $animation-speed
+
+		&::before
+			right: 50%
+			transform-origin: right bottom
+			transform: rotate(45deg)
+
+		&::after
+			left: 50%
+			transform-origin: left bottom
+			transform: rotate(-45deg)
+
+// стили стрелок в навигации для разных состояний
+.nav__angle
+
+	li.is-open > .nav__tab & i
+		transform: rotate(-0.5turn)
+
+		&::before, &::after
+			background-color: white
+
+	.no-touchevents &:hover i, .no-touchevents li.is-open > .nav__tab &:hover i
+
+		&::before, &::after
+			background-color: $text-color-alt
+
+	li.current > .nav__tab & i, .no-touchevents li.current > .nav__tab &:hover i
+
+		&::before, &::after
+			background-color: white
 
 /*navigation end*/

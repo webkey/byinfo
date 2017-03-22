@@ -2,7 +2,7 @@
 <!-- @@if(mainNavItemActive === "biography"){ class="current"} -->
 <!--NAVIGATION-->
 <nav class="nav">
-	<ul class="nav__list">
+	<ul class="nav__list nav-js">
 		<li class="has-drop@@if(mainNavItemActive === "Главная"){ current}">
 			@@include('_nav-LINK.tpl', { "itemText": "Главная", "itemLink": "index.html", "specialValue": "" })
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "start": "1"})
@@ -16,7 +16,7 @@
 		<li class="has-drop">@@include('_nav-LINK.tpl', { "itemText": "Самосогласованная модель предсказывает, что при определенных условиях турбулентность трансформирует лептон", "itemLink": "#", "specialValue": "" })
 			@@include('_nav-drop-wrap-2_TWO.tpl', { "start": "1"})
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Туманность искажает лептон", "itemLink": "#", "specialValue": "" })</li>
-		<li>@@include('_nav-LINK.tpl', { "itemText": "Разрыв устойчив в магнитном поле", "itemLink": "#", "specialValue": "" })</li>
+		<li class="current">@@include('_nav-LINK.tpl', { "itemText": "Разрыв устойчив в магнитном поле", "itemLink": "#", "specialValue": "" })</li>
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Эксимер", "itemLink": "#", "specialValue": "" })</li>
 			@@include('_nav-drop-wrap-2_TWO.tpl', { "end": "1"})
 		<li class="has-drop">@@include('_nav-LINK.tpl', { "itemText": "Вихрь мгновенно выталкивает фонон", "itemLink": "#", "specialValue": "" })

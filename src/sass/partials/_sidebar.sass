@@ -1,6 +1,27 @@
 /*SIDEBAR*/
+/*sidebar layout*/
+.sidebar
+	position: fixed
+	left: 0
+	top: 0
+	height: 100%
+	width: $sidebar-width
+	padding-top: $logo-height
+	background-color: $sidebar-bg-color
+	overflow: hidden
+
 .sidebar__holder
-	position: relative
+	overflow-x: auto
+	overflow-y: auto
+	height: 100%
+
+	.no-touchevents &, .desktop &
+		width: ($sidebar-width+30px)
+
+.sidebar__frame
+	width: $sidebar-width
+
+/*sidebar layout end*/
 
 /*logo*/
 .logo
@@ -14,11 +35,16 @@
 	margin: 0 2rem 0 0
 
 	.sidebar &
-		width: 100%
-		height: 135px
+		position: fixed
+		left: 0
+		top: 0
+		margin: 0
+		width: $sidebar-width
+		height: $logo-height
 		background-color: $sidebar-bg-color
 		background-position: $sidebar-inside-space 50%
 		border-bottom: 1px solid $sidebar-border-color
+		z-index: 100
 
 	a
 		display: block
