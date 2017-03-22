@@ -3,19 +3,19 @@
 <!--NAVIGATION-->
 <nav class="nav">
 	<ul class="nav__list nav-js">
-		<li class="has-drop@@if(mainNavItemActive === "Главная"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Главная", "itemLink": "index.html", "specialValue": "" })
+		<li class="has-drop@@if(mainNavItemActive === "Общая информация"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Общая информация", "itemLink": "index.html", "specialValue": "" })
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "start": "1"})
-		<li>@@include('_nav-LINK.tpl', { "itemText": "Гидродинамический удар", "itemLink": "#", "specialValue": "" })</li>
+		<li>@@include('_nav-LINK.tpl', { "itemText": " История", "itemLink": "#", "specialValue": "" })</li>
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Гамма-квант индуцирует погранслой", "itemLink": "#", "specialValue": "" })</li>
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "end": "1"})
 		</li>
-		<li class="has-drop@@if(mainNavItemActive === "Типографика"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Типографика", "itemLink": "typography.html", "specialValue": "" })
+		<li class="has-drop@@if(mainNavItemActive === "Государство и право"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Государство и право", "itemLink": "typography.html", "specialValue": "" })
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "start": "1"})
 		<li class="has-drop">@@include('_nav-LINK.tpl', { "itemText": "Самосогласованная модель предсказывает, что при определенных условиях турбулентность трансформирует лептон", "itemLink": "#", "specialValue": "" })
 			@@include('_nav-drop-wrap-2_TWO.tpl', { "start": "1"})
-		<li>@@include('_nav-LINK.tpl', { "itemText": "Туманность искажает лептон", "itemLink": "#", "specialValue": "" })</li>
+		<li>@@include('_nav-LINK.tpl', { "itemText": "Экономика и бизнес", "itemLink": "#", "specialValue": "" })</li>
 		<li class="current">@@include('_nav-LINK.tpl', { "itemText": "Разрыв устойчив в магнитном поле", "itemLink": "#", "specialValue": "" })</li>
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Эксимер", "itemLink": "#", "specialValue": "" })</li>
 			@@include('_nav-drop-wrap-2_TWO.tpl', { "end": "1"})
@@ -40,14 +40,14 @@
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Турбулентность", "itemLink": "#", "specialValue": "" })</li>
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "end": "1"})
 		</li>
-		<li class="@@if(mainNavItemActive === "О компании"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "О компании", "itemLink": "404.html", "specialValue": "" })
+		<li class="@@if(mainNavItemActive === "Экономика и бизнес"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Экономика и бизнес", "itemLink": "404.html", "specialValue": "" })
 		</li>
-		<li class="@@if(mainNavItemActive === "Публикации"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Публикации", "itemLink": "404.html", "specialValue": "" })
+		<li class="@@if(mainNavItemActive === "Наука и инновации"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Наука и инновации", "itemLink": "404.html", "specialValue": "" })
 		</li>
-		<li class="has-drop@@if(mainNavItemActive === "Технологии"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Технологии", "itemLink": "404.html", "specialValue": "" })
+		<li class="has-drop@@if(mainNavItemActive === "Культура и искусство"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Культура и искусство", "itemLink": "404.html", "specialValue": "" })
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "start": "1"})
 		<li class="has-drop">@@include('_nav-LINK.tpl', { "itemText": "Взвесь вертикально индуцирует пульсар", "itemLink": "#", "specialValue": "" })
 			@@include('_nav-drop-wrap-2_TWO.tpl', { "start": "1"})
@@ -61,11 +61,11 @@
 		<li>@@include('_nav-LINK.tpl', { "itemText": "Галактика ", "itemLink": "#", "specialValue": "" })</li>
 			@@include('_nav-drop-wrap-1_ONE.tpl', { "end": "1"})
 		</li>
-		<li class="@@if(mainNavItemActive === "Ссылки"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Ссылки", "itemLink": "404.html", "specialValue": "" })
+		<li class="@@if(mainNavItemActive === "Спорт и туризм"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Спорт и туризм", "itemLink": "404.html", "specialValue": "" })
 		</li>
-		<li class="@@if(mainNavItemActive === "Контакты"){ current}">
-			@@include('_nav-LINK.tpl', { "itemText": "Контакты", "itemLink": "404.html", "specialValue": "" })
+		<li class="@@if(mainNavItemActive === "Ресурсы библиотек"){ current}">
+			@@include('_nav-LINK.tpl', { "itemText": "Ресурсы библиотек", "itemLink": "404.html", "specialValue": "" })
 		</li>
 	</ul>
 </nav>
