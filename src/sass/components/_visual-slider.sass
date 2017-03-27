@@ -12,6 +12,12 @@ $visual-line-height: (2.4/1.6)
 	line-height: $visual-line-height
 	+ratio(1, 1, $pseudo: true )
 
+	+media('<desktop-md')
+		height: calc(100vh - #{$header-height})
+
+		&::before
+			content: none
+
 	&::after
 		+pseudo()
 		top: 0
@@ -50,8 +56,14 @@ $visual-line-height: (2.4/1.6)
 	left: 0
 	bottom: 0
 	width: 100%
-	padding: $layout-space-horizontal $layout-space-horizontal
+	padding: $layout-space-horizontal
 	z-index: 3
+
+	+media('<desktop-hd')
+		padding: $layout-space-horizontal-lg
+
+	+media('<desktop-md')
+		padding: $layout-space-horizontal-md
 
 .visual-item__title
 	margin-bottom: 2rem
@@ -66,5 +78,10 @@ $visual-line-height: (2.4/1.6)
 		color: $text-color-alt
 		line-height: 1.2
 		border-bottom: 1px solid $text-color-alt
+		transition-property: border-color
+		transition-duration: $animation-speed
+
+		.no-touchevents &:hover
+			border-bottom-color: transparent
 
 /*visual slider end*/

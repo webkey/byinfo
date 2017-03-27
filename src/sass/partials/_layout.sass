@@ -36,6 +36,12 @@
 	+margin-vertical($layout-space-horizontal)
 	background-color: white
 
+	+media('<desktop-hd')
+		+margin-vertical($layout-space-horizontal-lg)
+
+	+media('<desktop-md')
+		+margin-vertical($layout-space-horizontal-md)
+
 	.visual ~ &
 		margin-left: $visual-width
 
@@ -61,5 +67,11 @@
 
 .layout
 	+padding-horizontal($layout-space-horizontal)
+
+	+media('<desktop-hd')
+		+padding-horizontal($layout-space-horizontal-lg)
+
+	+media('<desktop-md')
+		+padding-horizontal($layout-space-horizontal-md)
 
 /*LAYOUT end*/
