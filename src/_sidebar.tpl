@@ -5,14 +5,10 @@
 	<div class="sidebar__holder">
 		<div class="sidebar__frame">
 			@@include('_navigation.tpl', { "mainNavItemActive": "@@mainNavItemActive" })
-			<div class="sidebar__widget">
+			<!--<div class="sidebar__widget">
 				<h3>Title of Sidebar Widget</h3>
 				Content of Sidebar Widget
-			</div>
-			<div class="sidebar__widget">
-				<h3>Title of Sidebar Widget</h3>
-				Content of Sidebar Widget
-			</div>
+			</div>-->
 		</div>
 	</div>
 </aside>

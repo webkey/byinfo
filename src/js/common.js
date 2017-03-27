@@ -421,10 +421,8 @@ function menuAccordionInit() {
 
 function blockedScrollOnPage() {
 	$('.sidebar, .visual').on('mouseenter', function () {
-		console.log(1);
 		noScroll();
 	}).on('mouseleave', function () {
-		console.log(2);
 		canScroll();
 	});
 }

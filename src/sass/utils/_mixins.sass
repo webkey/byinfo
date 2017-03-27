@@ -1,37 +1,58 @@
 @import "variables"
-// =============================================================================
-// String Replace
-// =============================================================================
-
-@function str-replace($string, $search, $replace: "")
-	$index: str-index($string, $search)
-
-	@if $index
-		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace)
-
-	@return $string
+@import "functions"
 
 // =============================================================================
-// Font Face
+// size
 // =============================================================================
+/// Примесь позволяет определять `width` и `height` одновременно.
+///
+/// @param {Length} $width - `width` элемента
+/// @param {Length} $height ($width) - `height` элемента
+///
+/// @example Sass - Использование
+/// .foo
+///   +size(10em)
+///
+/// .bar
+///   +size(100%, 10em
+///
+/// @example css - Вывод CSS
+/// .foo {
+///   width: 10em;
+///   height: 10em;
+/// }
+///
+/// .bar {
+///   width: 100%;
+///   height: 10em;
+/// }
 
-=font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg)
-	$src: null
+=size($width, $height: $width)
+	width: $width
+	height: $height
 
-	$extmods: (eot: "?", svg: "#" + str-replace($name, " ", "_"))
+// =============================================================================
+// font
+// =============================================================================
+/// Примесь добавляет одновремменно `font-size` и `line-height`
+/// Используются переменный `$font-size` и `$line-height`
+///
+/// @param {Length} $width - `width` элемента
+/// @param {Length} $height ($width) - `height` элемента
+///
+/// @example Sass - Использование
+/// .foo
+///   +font(1.4rem, 1.5)
+///
+/// @example css - Вывод CSS
+/// .foo {
+///   font-size: 1.4rem;
+///   line-height: 1.5;
+/// }
 
-	$formats: (otf: "opentype", ttf: "truetype")
-
-	@each $ext in $exts
-		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext)
-		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext)
-		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma)
-
-	@font-face
-		font-family: quote($name)
-		font-style: $style
-		font-weight: $weight
-		src: $src
+=font($font-size: $font-size, $line-height: $line-height)
+	font-size: $font-size
+	line-height: $line-height
 
 // =============================================================================
 // for vertical align
@@ -97,36 +118,6 @@ $grid-space: 20px !default
 	text-overflow: ellipsis
 	overflow: hidden
 
-/// Примесь позволяет определять `width` и `height` одновременно.
-///
-/// @author Hugo Giraudel
-///
-/// @access public
-///
-/// @param {Length} $width - `width` элемента
-/// @param {Length} $height ($width) - `height` элемента
-///
-/// @example Sass - Использование
-/// .foo
-///   +size(10em)
-///
-/// .bar
-///   +size(100%, 10em
-///
-/// @example css - Вывод CSS
-/// .foo {
-///   width: 10em;
-///   height: 10em;
-/// }
-///
-/// .bar {
-///   width: 100%;
-///   height: 10em;
-/// }
-///
-=size($width, $height: $width)
-	width: $width
-	height: $height
 
 /// Примесь добавляет горизонтальные внутренние отстпупы (`padding`) в развернутом виде.
 ///
@@ -450,20 +441,6 @@ $grid-space: 20px !default
 	overflow: hidden !important
 
 // =============================================================================
-// button default hover state
-// =============================================================================
-=btn-hover()
-	.no-touchevents &:hover
-		background-color: $color-btn-bg-hover
-
-// =============================================================================
-// button default active state
-// =============================================================================
-=btn-active()
-	&:active
-		transform: scale(0.95)
-
-// =============================================================================
 // Leaner gradient -vendor
 // =============================================================================
 /// Convert angle
@@ -471,7 +448,7 @@ $grid-space: 20px !default
 /// @param {Number} $value - Value to convert
 /// @param {String} $unit - Unit to convert to
 /// @return {Number} Converted angle
-///
+
 @function convert-angle($value, $unit)
 	$convertable-units: deg grad turn rad
 	$conversion-factors: 1 (10grad / 9deg) (1turn / 360deg) (3.14159rad / 180deg)
@@ -484,7 +461,7 @@ $grid-space: 20px !default
 /// Test if `$value` is an angle
 /// @param {*} $value - Value to test
 /// @return {Bool}
-///
+
 @function is-direction($value)
 	$is-direction: index((to top, to top right, to right top, to right, to bottom right, to right bottom, to bottom, to bottom left, to left bottom, to left, to left top, to top left), $value)
 	$is-angle: type-of($value) == "number" and index("deg" "grad" "turn" "rad", unit($value))
@@ -495,7 +472,7 @@ $grid-space: 20px !default
 /// @param {Keyword | Angle} $value - Value to convert
 /// @require {function} is-direction
 /// @require {function} convert-angle
-///
+
 @function legacy-direction($value)
 	@if is-direction($value) == false
 		@warn "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be an angle or a direction"
@@ -513,7 +490,7 @@ $grid-space: 20px !default
 /// @access public
 /// @param {String | List | Angle} $direction - Linear gradient direction
 /// @param {Arglist} $color-stops - List of color-stops composing the gradient
-///
+
 =linear-gradient($direction, $color-stops...)
 	@if is-direction($direction) == false
 		$color-stops: $direction, $color-stops
@@ -532,3 +509,77 @@ $grid-space: 20px !default
 //
 //.test-3
 //	+linear-gradient(42deg, #B58234 0%, #D2B545 50%, #D7C04D 50.01%, #FFFFFF 100%)
+
+// =============================================================================
+// Font Face Generator
+// =============================================================================
+/// Примесь генерирует подключение @font-face шрифтов
+///
+/// @author []
+///
+/// @param {String} $name [] - название шрифта
+/// @param {String} $path [] - путь к шрифту включая файл без расширения
+/// @param {String} $weight [null] - значение `font-weight`
+/// @param {String} $style [null] - значение `font-style`
+/// @param {Map} $exts [eot woff2 woff ttf svg] - мапа расширений шрифта
+///
+/// @example Sass - Использование
+///
+/// +font-face("candara", "../fonts/candara/regular/candara", normal, normal, eot woff ttf svg)
+///
+/// @example css - Вывод CSS
+///
+/// @font-face{
+///   font-family: "название-шрифта";
+///   font-style: normal;
+///   font-weight: normal;
+///   src: url("../fonts/candara/regular/candara.eot?") format("eot"), url("../fonts/candara/regular/candara.woff") format("woff"), url("../fonts/candara/regular/candara.ttf") format("truetype"), url("../fonts/candara/regular/candara.svg#candara-regular") format("svg");
+/// }
+
+@function str-replace($string, $search, $replace: "")
+	$index: str-index($string, $search)
+
+	@if $index
+		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace)
+
+	@return $string
+
+=font-face($name, $path, $weight: null, $style: null, $exts: eot woff2 woff ttf svg)
+	$src: null
+
+	$extmods: (eot: "?", svg: "#" + str-replace($name, " ", "_"))
+
+	$formats: (otf: "opentype", ttf: "truetype")
+
+	@each $ext in $exts
+		$extmod: if(map-has-key($extmods, $ext), $ext + map-get($extmods, $ext), $ext)
+		$format: if(map-has-key($formats, $ext), map-get($formats, $ext), $ext)
+		$src: append($src, url(quote($path + "." + $extmod)) format(quote($format)), comma)
+
+	@font-face
+		font-family: quote($name)
+		font-style: $style
+		font-weight: $weight
+		src: $src
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+// ПРИМЕСИ ИСПОЛЬЗУЕМЫЕ В ТИОПОГРАФИЧЕСКИХ СТИЛЯХ
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+// ============================================//
+// button default hover state
+// =============================================================================
+=btn-hover()
+	.no-touchevents &:hover
+		background-color: $color-btn-bg-hover
+
+// =============================================================================
+// button default active state
+// =============================================================================
+=btn-active()
+	&:active
+		transform: scale(0.95)
+
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+// ПРИМЕСИ ИСПОЛЬЗУЕМЫЕ В ТИПОГРАФИЧЕСКИХ СТИЛЯХ конец
+// +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
