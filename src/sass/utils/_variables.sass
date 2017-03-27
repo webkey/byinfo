@@ -1,12 +1,15 @@
 @import ../utils/functions
+@import ../utils/placeholders
 
 // medium query
 $breakpoints: ('mobile-sm': 320px, 'mobile-md': 480px, 'mobile-lg': 640px, 'tablet-sm': 768px, 'tablet-lg': 992px, 'desktop-sm': 1200px, 'desktop-md': 1366px, 'desktop-lg': 1600px, 'desktop-hd': 1920px)
 
 // base
 $font-size: 1.8rem !default
-$line-height: 3.0rem/$font-size !default
-$bottom-space: $font-size * $line-height !default
+$line-height: round-float(3.0rem/$font-size, 2) !default
+$bottom-space: round-float($font-size*$line-height, 1) !default
+$bottom-space-article: round-float($font-size*$line-height*1.5, 1) !default
+$bottom-space-section: round-float($font-size*$line-height*2, 1) !default
 
 // цвет фона страницы
 $bg-color: white !default

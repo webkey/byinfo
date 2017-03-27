@@ -32,23 +32,52 @@
 	min-height: 100%
 	+clear
 
+/*visual section*/
+.visual
+	position: fixed
+	top: $header-height
+	bottom: 0
+	width: calc((100% - #{$sidebar-width})/2)
+	max-width: calc((#{$page-max-width} - #{$sidebar-width})/2)
+	overflow-x: hidden
+	overflow-y: auto
+
+	+media('<desktop-sm')
+		position: relative
+		top: auto
+		bottom: auto
+		width: auto
+		max-width: none
+		overflow: visible
+
+/*visual section end*/
+
+/*content*/
 .content
-	+margin-vertical($layout-space-horizontal)
+	+margin-vertical($layout-space-horizontal, $bottom-space-section)
 	background-color: white
 
 	+media('<desktop-hd')
-		+margin-vertical($layout-space-horizontal-lg)
+		+margin-vertical($layout-space-horizontal-lg, $bottom-space-section)
 
 	+media('<desktop-md')
-		+margin-vertical($layout-space-horizontal-md)
+		+margin-vertical($layout-space-horizontal-md, $bottom-space-section)
+
+	+media('<desktop-sm')
+		margin-top: 0
 
 	.visual ~ &
 		margin-left: $visual-width
 
+		+media('<desktop-sm')
+			margin-left: 0
+
+/*content end*/
+
 .header
 	position: fixed
 	top: 0
-	z-index: 5
+	z-index: 10
 	width: calc(100% - #{$sidebar-width})
 	max-width: #{$page-max-width - $sidebar-width}
 	height: $header-height
@@ -60,7 +89,7 @@
 .footer
 	position: relative
 	height: 0
-	z-index: 5
+	z-index: 10
 
 .user-section
 	margin-bottom: $bottom-space

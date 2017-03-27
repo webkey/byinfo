@@ -15,6 +15,9 @@ $visual-line-height: (2.4/1.6)
 	+media('<desktop-md')
 		height: calc(100vh - #{$header-height})
 
+	+media('<desktop-sm')
+		height: 60vh
+
 		&::before
 			content: none
 
@@ -85,3 +88,71 @@ $visual-line-height: (2.4/1.6)
 			border-bottom-color: transparent
 
 /*visual slider end*/
+
+/*visual slider js*/
+.visual-slider
+	position: relative
+	padding-bottom: 50px
+	margin-bottom: $bottom-space
+	box-shadow: 0 1px 0 $border-color
+
+.visual-slider__list
+	padding-bottom: $bottom-space
+	position: relative
+	z-index: 2
+
+.visual-item
+	float: none
+	display: inline-block
+	vertical-align: top
+	opacity: 0
+	white-space: normal
+	overflow: hidden
+	position: relative
+	background: #494949
+
+	.slick-initialized &
+		display: block
+		float: left
+		opacity: 1
+
+	.no-js &
+		display: block
+		width: 100%
+		opacity: 1
+
+	img
+		position: absolute
+		top: -2px
+		left: 50%
+		text-align: center
+		max-width: none
+		height: calc(100% + 4px)
+		-webkit-transform: translate(-50%, 0)
+		-ms-transform: translate(-50%, 0)
+		transform: translate(-50%, 0)
+
+.visual-slider
+
+	.slick-arrow
+		top: auto
+		width: 50px
+		height: 50px
+		bottom: 0
+		-webkit-transform: translate(0, 0)
+		-ms-transform: translate(0, 0)
+		transform: translate(0, 0)
+
+	.slick-prev
+		left: 0
+		border-right: 1px solid $border-color
+
+	.slick-next
+		right: 0
+		border-left: 1px solid $border-color
+
+	.slick-dots
+		bottom: 14px
+		width: 100%
+
+/*visual slider js end*/

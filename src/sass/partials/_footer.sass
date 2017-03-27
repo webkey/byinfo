@@ -16,6 +16,10 @@ $footer-line-height: 3.0/1.6
 	right: 0
 	padding: 43px 0
 
+	+media('<desktop-sm')
+		left: 0
+		+padding-vertical(30px)
+
 	&:before
 		+pseudo()
 		left: $layout-space-horizontal
@@ -24,6 +28,14 @@ $footer-line-height: 3.0/1.6
 		height: 2px
 		pointer-events: none
 		+linear-gradient(to right, #019875, #9800f9)
+
+		+media('<desktop-hd')
+			left: $layout-space-horizontal-lg
+			right: $layout-space-horizontal-lg
+
+		+media('<desktop-md')
+			left: $layout-space-horizontal-md
+			right: $layout-space-horizontal-md
 
 /*footer layout end*/
 
