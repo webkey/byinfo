@@ -420,31 +420,39 @@ function menuAccordionInit() {
 /*multi accordion end*/
 
 function blockedScrollOnPage() {
-	if (window.innerWidth > 1279) {
-		$('.visual').on('mouseenter', function () {
-			noScroll();
-		}).on('mouseleave', function () {
-			canScroll();
-		});
-	}
+	$(window).on('load debouncedresize', function () {
+		if (Modernizr.objectfit) { // shame: detect ie 11 and older
+			if (window.innerWidth > 1279) {
+				$('.visual').on('mouseenter', function () {
+					noScroll();
+				}).on('mouseleave', function () {
+					canScroll();
+				});
+			} else {
+				$('.visual').on('mouseenter', function () {
+					canScroll();
+				})
+			}
 
-	$('.sidebar').on('mouseenter', function () {
-		noScroll();
-	}).on('mouseleave', function () {
-		canScroll();
-	});
+			$('.sidebar').on('mouseenter', function () {
+				noScroll();
+			}).on('mouseleave', function () {
+				canScroll();
+			});
+		}
+	})
 }
 
 /**
  * !sliders initial
  * */
 function slidersInit() {
-	/*gov slider*/
-	var $govSlider = $('.main-slider-js');
+	/*slider visual*/
+	var $sliderVisual = $('.main-slider-js');
 
-	if($govSlider.length){
+	if($sliderVisual.length){
 
-		$govSlider.each(function () {
+		$sliderVisual.each(function () {
 			var $currentSlider = $(this);
 			var dur = 200;
 
@@ -455,17 +463,65 @@ function slidersInit() {
 				slidesToScroll: 1,
 				// initialSlide: 2,
 				// lazyLoad: 'ondemand',
-				infinite: false,
-				dots: true,
-				arrows: true
-				// responsive: [
-				// 	{
-				// 		breakpoint: 320,
-				// 		settings: {
-				// 			slidesToShow: 1
-				// 		}
-				// 	}
-				// ]
+				infinite: true,
+				dots: false,
+				arrows: true,
+
+				accessibility: false,
+				draggable: false,
+				swipe: false,
+				touchMove: false,
+
+				responsive: [
+					{
+						breakpoint: 1280,
+						settings: {
+							accessibility: true,
+							draggable: true,
+							swipe: true,
+							touchMove: true
+						}
+					}
+				]
+			});
+
+		});
+	}
+
+	/*slider inner*/
+	var $sliderInner = $('.slider-inner-js');
+
+	if($sliderInner.length){
+
+		$sliderInner.each(function () {
+			var $currentSlider = $(this);
+			var dur = 300;
+
+			$currentSlider.slick({
+				fade: true,
+				speed: 700,
+				slidesToShow: 1,
+				slidesToScroll: 1,
+				// initialSlide: 2,
+				// lazyLoad: 'ondemand',
+				infinite: false ,
+				dots: false,
+				arrows: true,
+
+				autoplay: true,
+				autoplaySpeed: 6000,
+				pauseOnHover: true,
+
+				responsive: [
+					{
+						breakpoint: 1280,
+						settings: {
+							fade: false,
+							speed: 300,
+							autoplay: false
+						}
+					}
+				]
 			});
 
 		});

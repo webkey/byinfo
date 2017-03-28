@@ -1,30 +1,31 @@
 /*visual slider*/
-$visual-font-size: 1.6rem
-$visual-line-height: (2.4/1.6)
+$slider-inner-font-size: 1.6rem
+$slider-inner-line-height: (2.4/1.6)
 
-.slider-visual-item
+.slider-inner, .slider-inner-item
+	height: calc(100vh - #{$header-height}) // height of page - height of header
+	width: 100%
+	overflow: hidden
+
+	+media('<desktop-sm')
+		height: 60vh
+
+	.no-js &
+		overflow: visible
+
+.no-js .slider-inner
+	height: auto
+
+.slider-inner-item
 	display: block
 	position: relative
 	overflow: hidden
 	background-color: $sidebar-border-color
 	color: white
-	font-size: $visual-font-size
-	line-height: $visual-line-height
+	font-size: $slider-inner-font-size
+	line-height: $slider-inner-line-height
 
-	&::before
-		+pseudo($pos: relative)
-		+ratio(1, 1)
-
-	+media('<desktop-md')
-		height: calc(100vh - #{$header-height})
-
-	+media('<desktop-sm')
-		height: 60vh
-
-		&::before
-			content: none
-
-.slider-visual-item__img
+.slider-inner-item__img
 	overflow: hidden
 	position: absolute
 	left: 0
@@ -46,7 +47,7 @@ $visual-line-height: (2.4/1.6)
 		transform: translate(-50%, -50%)
 		object-fit: cover
 
-.slider-visual-item__content
+.slider-inner-item__content
 	position: absolute
 	left: 0
 	bottom: 0
@@ -69,16 +70,16 @@ $visual-line-height: (2.4/1.6)
 		z-index: -1
 		+linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 16%,rgba(0,0,0,0.35) 35%,rgba(0,0,0,0.70) 82%,rgba(0,0,0,0.90) 100%)
 
-//.no-touchevents .slider-visual-item:hover
+//.no-touchevents .slider-inner-item__content:hover
 	&::after
 		+linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 16%,rgba(0,0,0,0.24) 35%,rgba(0,0,0,0.68) 82%,rgba(0,0,0,0.83) 100%)
 
-.slider-visual-item__title
+.slider-inner-item__title
 	margin-bottom: 2rem
 	overflow: hidden
-	max-height: ($visual-line-height * 10em)
+	max-height: ($slider-inner-line-height * 10em)
 
-.slider-visual-item__source
+.slider-inner-item__source
 
 	span
 		display: inline-block
@@ -95,35 +96,22 @@ $visual-line-height: (2.4/1.6)
 /*visual slider end*/
 
 /*visual slider js*/
-.slider-visual, .slick-dotted.slider-visual
+.slider-inner, .slick-dotted.slider-inner
 	position: relative
-	margin-bottom: $bottom-space
+	padding-bottom: 0
+	margin-bottom: 0
 	white-space: nowrap
 
 	.no-js &
 		white-space: normal
 
-	+media('>=desktop-sm')
-		padding-bottom: 0
-		margin-bottom: 0
-		box-shadow: none
+	+media('<desktop-sm')
+		margin-bottom: $bottom-space
 
-	.slick-list, .slick-track
-		+media('>=desktop-sm')
-			opacity: 1 !important
-			width: auto !important
-			transform: none !important
-
-.slider-visual__list
-	padding-bottom: $bottom-space
-	position: relative
-	z-index: 2
-
-.slider-visual-item
+.slider-inner-item
 	float: none
 	display: inline-block
 	vertical-align: top
-	opacity: 0
 	white-space: normal
 	overflow: hidden
 	position: relative
@@ -136,20 +124,5 @@ $visual-line-height: (2.4/1.6)
 	.no-js &
 		display: block
 		width: 100%
-		opacity: 1
-
-.slider-visual
-
-	.slick-arrow
-
-		+media('>=desktop-sm')
-			display: none !important
-
-	.slick-dots
-		bottom: 14px
-		width: 100%
-
-		+media('>=desktop-sm')
-			display: none !important
 
 /*visual slider js end*/

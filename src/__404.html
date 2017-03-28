@@ -1,0 +1,30 @@
+@@include('_head.tpl', { "title": "404", "pageClass": "" })
+<div class="wrapper">
+	<div class="max-wrap">
+		<div class="page">
+			<div class="cross">
+				@@include('_header.tpl')
+				<!--CONTENT-->
+				<div class="main">
+					<div class="visual">
+						@@include('_slider-visual.tpl')
+					</div>
+					<div class="content user-content">
+						<div class="layout">
+							@@include('_breadcrumbs.tpl')
+							<section class="user-section">
+								<h1>Page Not Found</h1>
+								<p>Sorry, but the page you were trying to view does not exist.</p>
+								<p><a href="index.html">Home page</a></p>
+							</section>
+						</div>
+					</div>
+				</div>
+				<!--CONTENT end-->
+			</div>
+			@@include('_footer.tpl')
+		</div>
+		@@include('_sidebar.tpl', { "mainNavItemActive": "inner" })
+	</div>
+</div>
+@@include('_foot.tpl')

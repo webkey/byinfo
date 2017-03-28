@@ -1,6 +1,6 @@
 <!--visual slider-->
-<div class="visual-slider main-slider-js">
-	@@loop('_visual-slider-item.tpl', [{
+<div class="slider-visual main-slider-js">
+	@@loop('_slider-visual-item.tpl', [{
 	"src": "img/img-inner-gallery-01.jpg",
 	"title": "ОАО «БЕЛАЗ» – крупнейший мировой производитель карьерных самосвалов большой и особо большой грузоподъемности, а также другого тяжелого транспортного оборудования, применяемого в горнодобывающей и строительной отраслях промышленности.",
 	"link": "belaz"

@@ -1,53 +1,68 @@
 /*slider*/
 // arrows
 .slick-arrow
-	width: 40px
-	height: 40px
+	+size(50px)
 	display: block
 	position: absolute
-	border: none
-	border-radius: 0
 	background: none
+	border: none
 	outline: none
 	box-shadow: none
-	opacity: 1
+	transition-property: opacity, visibility
+	transition-duration: $animation-speed
 	z-index: 6
-	-webkit-transition-property: background, opacity, visibility
-	transition-property: background, opacity, visibility
-	-webkit-transition-duration: 0.2s
-	transition-duration: 0.2s
+
+	.no-touchevents &
+		opacity: 0
+		visibility: hidden
+
+	.no-touchevents .slick-slider:hover &
+		opacity: 1
+		visibility: visible
 
 	.no-touchevents &:hover
 		opacity: 1
-		background: #e6e6e6
+		background: none
 
-	&.slick-disabled,
-	.no-touchevents &.slick-disabled
-		opacity: 0.25
-		-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25)
-		filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=25)
+	&.slick-disabled, .no-touchevents &.slick-disabled
+		opacity: 0.25 !important
+		//pointer-events: none
 
-		&:before
+		&::before, &::after //clean default style
 			opacity: 1
 
 	&:before
-		content: none
+		+pseudo()
+		+size(100%)
+		top: 0
+		left: 0
+		border-radius: 50%
+		border: 2px solid white
+		transition-property: background-color, border-color
+		transition-duration: $animation-speed
+
+	.no-touchevents &:hover::before
+		border-color: $text-color-alt
+
+	&:active::before
+		transform: scale(0.95)
 
 	&:after
+		+pseudo()
 		top: 50%
-		content: ""
-		position: absolute
 		opacity: 1
 		pointer-events: none
-		width: 12px
-		height: 12px
-		-webkit-transform: rotate(45deg)
-		-ms-transform: rotate(45deg)
+		+size(12px)
+		border: 0 solid white
 		transform: rotate(45deg)
-		border: 0 solid $text-color-alt
+		transition-property: border-color
+		transition-duration: $animation-speed
+
+	.no-touchevents &:hover::after
+		border-color: $text-color-alt
 
 .slick-prev
-	left: 0
+	left: 10px
 
 	&:after
 		left: 50%
@@ -55,7 +70,7 @@
 		margin: -5px 0 0 -4px
 
 .slick-next
-	right: 0
+	right: 10px
 
 	&:after
 		right: 50%

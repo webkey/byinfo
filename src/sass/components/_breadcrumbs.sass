@@ -20,7 +20,7 @@ $breadcrumbs-line-height: (($breadcrumbs-item-height/1px - 2) * 1px)
 	cursor: default
 	overflow: hidden
 
-	+media('<desktop-sm')
+	//+media('<desktop-sm')
 		display: none
 
 	li
@@ -37,6 +37,9 @@ $breadcrumbs-line-height: (($breadcrumbs-item-height/1px - 2) * 1px)
 			display: inline-block
 			vertical-align: top
 			+truncate(180px)
+
+			+media('<desktop-md')
+				max-width: 100px
 
 	a
 		display: inline-block
