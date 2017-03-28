@@ -162,8 +162,7 @@ gulp.task('copyImgToDist', function () {
 gulp.task('build', ['cleanDistFolder', 'htmlCompilation', 'copyImgToDist', 'sassCompilation', 'mergeCssLibs', 'createCustomModernizr', 'copyLibsScriptsToJs'], function () {
 
 	gulp.src([ // Переносим css в продакшен
-		'src/css/main.css',
-		'src/css/libs.min.css'
+		'src/css/*.css'
 	])
 		.pipe(gulp.dest('dist/css'));
 

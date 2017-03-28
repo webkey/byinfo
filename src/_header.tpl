@@ -22,7 +22,7 @@
 			</li>
 		</ul>
 		<!--user options end-->
-		<a href="index.html" class="project-name"><span>Беларусь в информационном пространстве</span></a>
+		<strong class="project-name"><a href="index.html">Беларусь в информационном пространстве</a></strong>
 	</div>
 </header>
 <!--HEADER end-->

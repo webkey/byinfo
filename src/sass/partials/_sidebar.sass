@@ -11,6 +11,7 @@
 	overflow: hidden
 
 	+media('<tablet-lg')
+		padding-top: $header-height
 		display: none
 		z-index: 100
 
@@ -21,7 +22,6 @@
 
 	+media('<tablet-sm')
 		width: 100%
-		padding-top: $header-height
 
 .sidebar__holder
 	overflow-x: auto
@@ -68,7 +68,7 @@
 		border-bottom: 1px solid $sidebar-border-color
 		z-index: 100
 
-		+media('<tablet-sm')
+		+media('<tablet-lg')
 			width: 100%
 			height: $header-height
 			background-size: auto 65%

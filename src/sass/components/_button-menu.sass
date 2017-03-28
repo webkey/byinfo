@@ -116,17 +116,25 @@
 	box-shadow: none
 	border-left: 1px solid rgba(0, 0, 0, 0.3)
 
+	.no-touchevents &:hover
+		background: none
+
 	> i
 		background-color: transparent
 
-		&:before
+		&::before, &::after
 			top: 0
 			background-color: white
+
+		&:before
 			transform: rotate(-45deg)
 
 		&:after
-			top: 0
-			background-color: white
 			transform: rotate(45deg)
+
+	.no-touchevents &:hover i
+		&::before, &::after
+			top: 0
+			background-color: $text-color-alt
 
 /*button menu close end*/
