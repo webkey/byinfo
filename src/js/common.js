@@ -423,7 +423,6 @@ function blockedScrollOnPage() {
 	$(window).on('load debouncedresize', function () {
 		if (Modernizr.objectfit) { // shame: detect ie 11 and older
 			if (window.innerWidth > 1279) {
-				console.log(1);
 				$('.visual').on('mouseenter', function () {
 					noScroll();
 				}).on('mouseleave', function () {

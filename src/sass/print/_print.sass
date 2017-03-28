@@ -1,3 +1,5 @@
+@import "../utils/mixins"
+
 @media print
 	*,
 	*:before,
@@ -42,20 +44,57 @@
 	h2, h3
 		page-break-after: avoid
 
-	.sidebar,
-	.aside,
-	.print-hidden
-		display: none !important
+	img
+		filter: grayscale(1) !important
+		max-width: 8cm !important
 
-	.content
-		margin-left: 0 !important
-		margin-right: 0 !important
+	body,
+	body *
+		font-family: Arial, Helvetica, sans-serif
+		font-size: 10pt
+		line-height: 1.5 !important
+
+	h1, .main-slider-title__item
+		font-size: 28px !important
+		line-height: 1.2 !important
+
+	h2
+		font-size: 24px !important
+		line-height: 1.2 !important
+
+	h3
+		font-size: 20px !important
+		line-height: 1.2 !important
+
+	h4
+		font-size: 16px !important
+
+	h5
+		font-size: 14px !important
+
+	h6
+		font-size: 12px !important
+
+	table td, table th, table
+		border: 1px solid #000 !important
 
 	.logo
 		background: none !important
 
-	.logo > *
-		display: none
+		& > *
+			display: none !important
 
-	.logo > img
-		display: inline-block !important
+		& > img
+			display: inline-block !important
+
+	.sidebar, .aside, .print-hidden, .user-options, .visual, .breadcrumbs__list, form, .view-print, .footer, .spacer, [class*="btn-"]
+		display: none !important
+
+	.page, .blockquote, .blockquote *, .header, .header__holder, .main, .content, .layout, .imgl, .imgr, .imgc
+		+print-reset
+
+	h1, h2, h3, h4, h5, h6, p, ul, ol, table, blockquote, .imgl, .imgr, .imgc
+		+prints-space-bottom-sm
+
+	.blockquote
+		+prints-space-bottom-md

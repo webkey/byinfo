@@ -79,10 +79,38 @@ $visual-line-height: (2.4/1.6)
 	&::after
 		+linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.1) 16%,rgba(0,0,0,0.24) 35%,rgba(0,0,0,0.68) 82%,rgba(0,0,0,0.83) 100%)
 
+.slider-inner-item__heading
+	position: relative
+	margin-bottom: $bottom-space
+	padding-bottom: 15px
+	+font(1.8rem, 1.5)
+	font-weight: 600
+	color: #fff
+
+	&:last-child
+		margin-bottom: 0
+
+	&::after
+		+pseudo()
+		left: 0
+		bottom: 0
+		width: 50px
+		border-top: 3px solid $text-color-alt
+
+	+media('<mobile-lg')
+		margin-bottom: 0
+		padding: 0
+
+		&::after
+			content: none
+
 .slider-visual-item__title
 	margin-bottom: 2rem
 	overflow: hidden
 	max-height: ($visual-line-height * 10em)
+
+	&:last-child
+		margin-bottom: 0
 
 	+media('<mobile-lg')
 		display: none
