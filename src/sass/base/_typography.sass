@@ -57,34 +57,29 @@ h1
 	margin-bottom: $bottom-space
 
 h2
+	+font-bold
 	+font(3.6rem, 1.2)
 	margin-bottom: $bottom-space
 
-	+media('<desktop-hd')
-		+font(3.2rem, 1.2)
-
-	+media('<desktop-lg')
-		+font(2.8rem, 1.3)
-
 h3
-	font-size: 2.8rem
-	line-height: 1.2
+	+font-bold
+	+font(2.8rem, 1.3)
 	margin-bottom: $bottom-space
 
 h4
-	font-size: 2.2rem
-	line-height: 1.2
+	+font-bold
+	+font(2.2rem, 1.3)
 	margin-bottom: $bottom-space
 
 h5
-	font-size: 2.0rem
-	line-height: 1.2
+	+font-bold
+	+font(2.0rem, 1.4)
 	margin-bottom: $bottom-space
 
 h6
-	font-size: $font-size
-	line-height: $line-height
+	+font($font-size, $line-height)
 	margin-bottom: $bottom-space
+	text-transform: uppercase
 
 p
 	padding: 0
@@ -212,10 +207,10 @@ button
 	border: 1px solid transparent
 	background: $color-btn-bg
 	box-shadow: none
-	-webkit-transition-property: background-color
 	transition-property: background-color
-	-webkit-transition-duration: $animation-speed
 	transition-duration: $animation-speed
+	backface-visibility: hidden
+	+antialiased
 	+btn-hover
 	+btn-active
 
@@ -550,9 +545,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="sea
 	background: $color-form-bg
 	box-shadow: none
 	border: 1px solid $color-form-border
-	-webkit-transition-property: border-color
 	transition-property: border-color
-	-webkit-transition: $animation-speed
 	transition: $animation-speed
 	box-sizing: border-box
 
@@ -721,9 +714,7 @@ input[type="checkbox"]
 		margin-top: -8px
 		border-radius: 0
 		background: none
-		-webkit-transition-property: opacity
 		transition-property: opacity
-		-webkit-transition-duration: $animation-speed
 		transition-duration: $animation-speed
 
 	& + label > span:before,
@@ -738,11 +729,8 @@ input[type="checkbox"]
 		top: 50%
 		border-radius: 2px
 		background: $text-color-alt
-		-webkit-transition-property: opacity
 		transition-property: opacity
-		-webkit-transition-duration: $animation-speed
 		transition-duration: $animation-speed
-		-webkit-transition-timing-function: linear
 		transition-timing-function: linear
 
 	& + label > span:before,
@@ -763,24 +751,17 @@ input[type="checkbox"]
 		& + span:before
 			width: 7px
 			margin: -4px 0 0 0
-			-webkit-transition-property: width
 			transition-property: width
-			-webkit-transition-duration: 0.1s
 			transition-duration: 0.1s
-			-webkit-backface-visibility: hidden
 			backface-visibility: hidden
 
 		& + label > span:after,
 		& + span:after
 			width: 11px
 			margin: 0 0 0 -8px
-			-webkit-transition-property: width
 			transition-property: width
-			-webkit-transition-duration: 0.1s
 			transition-duration: 0.1s
-			-webkit-transition-delay: 0.1s
 			transition-delay: 0.1s
-			-webkit-backface-visibility: hidden
 			backface-visibility: hidden
 
 	// checkbox disabled
@@ -832,9 +813,7 @@ input[type="radio"]
 		margin-top: -8px
 		border-radius: 50px
 		background: none
-		-webkit-transition-property: opacity
 		transition-property: opacity
-		-webkit-transition-duration: $animation-speed
 		transition-duration: $animation-speed
 
 	& + label > span:after,
@@ -964,9 +943,7 @@ input[type="radio"]
 		-webkit-appearance: none
 		-moz-appearance: none
 		box-shadow: none
-		-webkit-transition-property: background, border, color, box-shadow
 		transition-property: background, border, color, box-shadow
-		-webkit-transition-duration: $animation-speed
 		transition-duration: $animation-speed
 		box-sizing: border-box
 		outline: none
@@ -1095,9 +1072,7 @@ div.cselect
 		padding: 13px 18px
 		border: none
 		background-color: $color-form-bg
-		-webkit-transition-property: background, color
 		transition-property: background, color
-		-webkit-transition-duration: $animation-speed
 		transition-duration: $animation-speed
 
 	.desktop .ui-multiselect-checkboxes label:hover
@@ -1121,16 +1096,14 @@ div.cselect
 
 /*view print*/
 .view-print
-	float: right
+	display: inline-block
+	vertical-align: top
 	padding: 6px 12px
-	background: #f9f9f9
+	background-color: #f9f9f9
 	line-height: 1
 	color: #000
 	text-decoration: none
-	margin-left: 30px
-	-webkit-transition-property: background
 	transition-property: background
-	-webkit-transition-duration: $animation-speed
 	transition-duration: $animation-speed
 
 	.no-touchevents &:hover
@@ -1156,3 +1129,30 @@ div.cselect
 		& span
 			display: none
 /*view print end*/
+
+/*datetime*/
+.datetime
+	display: block
+	margin-bottom: $bottom-space
+
+/*datetime end*/
+
++media('<desktop-hd')
+	h2
+		+font(3.2rem, 1.2)
+
+	h3
+		+font(2.6rem, 1.3)
+
++media('<desktop-lg')
+	h2
+		+font(2.8rem, 1.3)
+
+	h3
+		+font(2.4rem, 1.3)
+
+	h4
+		+font(2.0rem, 1.4)
+
+	h5
+		+font(1.8rem, 1.5)

@@ -26,7 +26,7 @@
 
 	&.slick-disabled, .no-touchevents &.slick-disabled
 		opacity: 0.25 !important
-		//pointer-events: none
+		pointer-events: none
 
 		&::before, &::after //clean default style
 			opacity: 1
@@ -62,7 +62,16 @@
 		border-color: $text-color-alt
 
 .slick-prev
-	left: 10px
+	left: $layout-space-horizontal
+
+	+media('<desktop-lg')
+		left: $layout-space-horizontal-lg
+
+	+media('<desktop-md')
+		left: $layout-space-horizontal-md
+
+	+media('<tablet-sm')
+		left: $layout-space-horizontal-sm
 
 	&:after
 		left: 50%
@@ -70,7 +79,16 @@
 		margin: -5px 0 0 -4px
 
 .slick-next
-	right: 10px
+	right: $layout-space-horizontal
+
+	+media('<desktop-lg')
+		right: $layout-space-horizontal-lg
+
+	+media('<desktop-md')
+		right: $layout-space-horizontal-md
+
+	+media('<desktop-md')
+		right: $layout-space-horizontal-sm
 
 	&:after
 		right: 50%

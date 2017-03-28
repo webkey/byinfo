@@ -12,6 +12,9 @@
 	padding-left: $layout-space-horizontal
 	+clear
 
+	+media('<tablet-lg')
+		padding-left: 0
+
 /*header layout end*/
 
 /*user options*/
@@ -168,9 +171,22 @@
 	padding-right: $layout-space-horizontal
 	height: $header-height
 	z-index: 95
+	+font-bold
 	font-size: 1.4rem
 	text-transform: uppercase
+	text-decoration: none
 	color: $sidebar-bg-color
+
+	+media('<tablet-lg')
+		text-align: center
+		+padding-horizontal(20px)
+
+	+media('<mobile-lg')
+		font-size: 1.2rem
+
+	+media('<mobile-md')
+		+padding-horizontal(10px)
+		font-size: 1.0rem
 
 	&::before
 		+for-vertical-align
@@ -178,6 +194,7 @@
 	span
 		display: inline-block
 		vertical-align: middle
+		max-width: calc(100% - 8px)
 
 /*main navigation end*/
 /*HEADER end*/

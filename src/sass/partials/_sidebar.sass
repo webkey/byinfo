@@ -10,6 +10,19 @@
 	background-color: $sidebar-bg-color
 	overflow: hidden
 
+	+media('<tablet-lg')
+		display: none
+		z-index: 100
+
+	+media('>=tablet-lg')
+		opacity: 1 !important
+		visibility: visible !important
+		transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important
+
+	+media('<tablet-sm')
+		width: 100%
+		padding-top: $header-height
+
 .sidebar__holder
 	overflow-x: auto
 	overflow-y: auto
@@ -18,8 +31,17 @@
 	.no-js &, .no-touchevents &, .desktop &
 		width: ($sidebar-width+30px)
 
+		+media('<tablet-sm')
+			width: 100%
+
+	+media('<tablet-sm')
+		width: 100%
+
 .sidebar__frame
 	width: $sidebar-width
+
+	+media('<tablet-sm')
+		width: 100%
 
 /*sidebar layout end*/
 
@@ -45,6 +67,11 @@
 		background-position: $sidebar-inside-space 50%
 		border-bottom: 1px solid $sidebar-border-color
 		z-index: 100
+
+		+media('<tablet-sm')
+			width: 100%
+			height: $header-height
+			background-size: auto 65%
 
 	a
 		display: block

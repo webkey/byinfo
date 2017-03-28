@@ -2,6 +2,7 @@
 <header class="header">
 	@@include('_search.tpl')
 	<div class="header__holder">
+		<a href="#" class="btn-nav btn-nav-js"><i></i><span>Меню</span></a>
 		<!--user options-->
 		<ul class="user-options">
 			<li class="user-options__item lang lang-js">
@@ -21,7 +22,7 @@
 			</li>
 		</ul>
 		<!--user options end-->
-		<strong class="project-name"><span>Беларусь в информационном пространстве</span></strong>
+		<a href="index.html" class="project-name"><span>Беларусь в информационном пространстве</span></a>
 	</div>
 </header>
 <!--HEADER end-->

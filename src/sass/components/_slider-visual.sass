@@ -60,6 +60,12 @@ $visual-line-height: (2.4/1.6)
 	+media('<desktop-md')
 		padding: $layout-space-horizontal-md
 
+	+media('<mobile-lg')
+		padding-top: 60px
+
+	+media('<tablet-sm')
+		+padding-horizontal($layout-space-horizontal-sm)
+
 	&::after
 		+pseudo()
 		top: 0
@@ -67,7 +73,7 @@ $visual-line-height: (2.4/1.6)
 		height: 100%
 		width: 100%
 		z-index: -1
-		+linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 16%,rgba(0,0,0,0.35) 35%,rgba(0,0,0,0.70) 82%,rgba(0,0,0,0.90) 100%)
+		+linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.20) 16%,rgba(0,0,0,0.35) 35%,rgba(0,0,0,0.65) 82%,rgba(0,0,0,0.82) 100%)
 
 //.no-touchevents .slider-visual-item:hover
 	&::after
@@ -78,6 +84,9 @@ $visual-line-height: (2.4/1.6)
 	overflow: hidden
 	max-height: ($visual-line-height * 10em)
 
+	+media('<mobile-lg')
+		display: none
+
 .slider-visual-item__source
 
 	span
@@ -85,6 +94,7 @@ $visual-line-height: (2.4/1.6)
 		vertical-align: top
 		color: $text-color-alt
 		line-height: 1.2
+		font-weight: 400
 		border-bottom: 1px solid $text-color-alt
 		transition-property: border-color
 		transition-duration: $animation-speed

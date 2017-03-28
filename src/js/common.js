@@ -423,6 +423,7 @@ function blockedScrollOnPage() {
 	$(window).on('load debouncedresize', function () {
 		if (Modernizr.objectfit) { // shame: detect ie 11 and older
 			if (window.innerWidth > 1279) {
+				console.log(1);
 				$('.visual').on('mouseenter', function () {
 					noScroll();
 				}).on('mouseleave', function () {
@@ -434,11 +435,13 @@ function blockedScrollOnPage() {
 				})
 			}
 
-			$('.sidebar').on('mouseenter', function () {
-				noScroll();
-			}).on('mouseleave', function () {
-				canScroll();
-			});
+			if (window.innerWidth > 992) {
+				$('.sidebar').on('mouseenter', function () {
+					noScroll();
+				}).on('mouseleave', function () {
+					canScroll();
+				});
+			}
 		}
 	})
 }
@@ -495,7 +498,6 @@ function slidersInit() {
 
 		$sliderInner.each(function () {
 			var $currentSlider = $(this);
-			var dur = 300;
 
 			$currentSlider.slick({
 				fade: true,
@@ -528,6 +530,383 @@ function slidersInit() {
 	}
 }
 /*sliders initial*/
+
+/**
+ * !extra popup jQuery plugin
+ * */
+(function ($) {
+	// external js:
+	// 1) TweetMax VERSION: 1.19.0 (libs);
+	// 2) device.js (libs);
+	// 3) resizeByWidth (resize only width);
+	// 4) blocked scroll;
+
+	// add css style
+	// .nav-opened-before{
+	// 	width: 100%!important;
+	// 	height: 100%!important;
+	// 	max-width: 100%!important;
+	// 	max-height: 100%!important;
+	// 	margin: 0!important;
+	// 	padding: 0!important;
+	// 	overflow: hidden!important;
+	// }
+
+	// .nav-opened-before .wrapper{ z-index: 99; } // z-index of header must be greater than footer
+	//
+	// if nav need to hide
+	// @media only screen and (min-width: [example: 1280px]){
+	// .nav{
+	// 		-webkit-transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 		-ms-transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 		transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 	}
+	// .nav-list > li{
+	// 		-webkit-transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 		-ms-transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 		transform: translate(0, 0) matrix(1, 0, 0, 1, 0, 0) !important;
+	// 		opacity: 1 !important;
+	// 		visibility: visible !important;
+	// 	}
+	// }
+	var ExtraPopup = function (settings) {
+		var options = $.extend({
+			mainContainer: 'html', // container wrapping all elements
+			navContainer: null, // main navigation container
+			navMenu: null, // menu
+			btnMenu: null, // element which opens or switches menu
+			btnMenuClose: null, // element which closes a menu
+			navMenuItem: null,
+			navMenuAnchor: 'a',
+			staggerItems: null,
+			overlay: '.nav-overlay', // overlay's class
+			overlayAppendTo: 'body', // where to place overlay
+			overlayAlpha: 0.8,
+			overlayIndex: 'auto',
+			classReturn: null,
+			overlayBoolean: true,
+			animationSpeed: 300,
+			animationSpeedOverlay: null,
+			minWidthItem: 100,
+			mediaWidth: null,
+			closeOnResize: true,
+			closeEsc: true // close popup on click Esc
+		}, settings || {});
+
+		var container = $(options.navContainer),
+			_animateSpeed = options.animationSpeed;
+
+		var self = this;
+		self.options = options;
+		self.$mainContainer = $(options.mainContainer);            // . по умолчанию <html></html>
+		self.$navMenu = $(options.navMenu);
+		self.$btnMenu = $(options.btnMenu);
+		self.$btnMenuClose = $(options.btnMenuClose);
+		self.$navContainer = container;
+		self.$navMenuItem = $(options.navMenuItem, container);     // Пункты навигации;
+		self.$navMenuAnchor = $(options.navMenuAnchor, container); // Элемент, по которому производится событие (клик);
+		self.$staggerItems = options.staggerItems || self.$navMenuItem;  //Элементы в стеке, к которым применяется анимация. По умолчанию navMenuItem;
+
+		self._animateSpeed = _animateSpeed;
+
+		// overlay
+		self.overlayBoolean = options.overlayBoolean;
+		self.overlayAppendTo = options.overlayAppendTo;
+		self.$overlay = $('<div class="' + options.overlay.substring(1) + '"></div>'); // Темплейт оверлея;
+		self._overlayAlpha = options.overlayAlpha;
+		self._overlayIndex = options.overlayIndex;
+		self._animateSpeedOverlay = options.animationSpeedOverlay || _animateSpeed;
+		self._minWidthItem = options.minWidthItem;
+		self._mediaWidth = options.mediaWidth;
+		self.closeOnResize = options.closeOnResize;
+		self.closeEsc = options.closeEsc;
+
+		self.desktop = device.desktop();
+
+		self.modifiers = {
+			active: 'active',
+			opened: 'nav-opened',
+			openStart: 'nav-opened-before'
+		};
+
+		self.outsideClick();
+		if ( self._mediaWidth === null || window.innerWidth < self._mediaWidth ) {
+			self.preparationAnimation();
+		}
+		// $(window).on('debouncedresize', function () {
+		// 	self.preparationAnimation();
+		// });
+		self.toggleMenu();
+		self.eventsBtnMenuClose();
+		self.clearStyles();
+		self.closeNavOnEsc();
+	};
+
+	ExtraPopup.prototype.navIsOpened = false;
+
+	// overlay append to "overlayAppendTo"
+	ExtraPopup.prototype.createOverlay = function () {
+		var self = this,
+			$overlay = self.$overlay;
+
+		$overlay.appendTo(self.overlayAppendTo);
+
+		TweenMax.set($overlay, {
+			autoAlpha: 0,
+			position: 'fixed',
+			width: '100%',
+			height: '100%',
+			left: 0,
+			top: 0,
+			background: '#000',
+			'z-index': self._overlayIndex,
+			onComplete: function () {
+				TweenMax.to($overlay, self._animateSpeedOverlay / 1000, {autoAlpha: self._overlayAlpha});
+			}
+		});
+	};
+
+	// toggle overlay
+	ExtraPopup.prototype.toggleOverlay = function (close) {
+		var self = this,
+			$overlay = self.$overlay;
+
+		if (close === false) {
+			TweenMax.to($overlay, self._animateSpeedOverlay / 1000, {
+				autoAlpha: 0,
+				onComplete: function () {
+					$overlay.remove();
+				}
+			});
+			return false;
+		}
+
+		self.createOverlay();
+	};
+
+	// toggle menu
+	ExtraPopup.prototype.toggleMenu = function () {
+		var self = this,
+			$buttonMenu = self.$btnMenu;
+
+		$buttonMenu.on('mousedown touchstart vmousedown', function (e) {
+			e.preventDefault();
+
+			if (self.navIsOpened) {
+				self.closeNav();
+			} else {
+				self.openNav();
+			}
+
+			e.stopPropagation();
+		});
+	};
+
+	// events btn close menu
+	ExtraPopup.prototype.eventsBtnMenuClose = function () {
+
+		var self = this;
+
+		self.$btnMenuClose.on('click', function (e) {
+			e.preventDefault();
+
+			if ( self.navIsOpened ) {
+				self.closeNav();
+			}
+
+			e.stopPropagation();
+		});
+	};
+
+	// click outside menu
+	ExtraPopup.prototype.outsideClick = function () {
+		var self = this;
+
+		$(document).on('click', function () {
+			if ( self.navIsOpened ) {
+				self.closeNav();
+			}
+		});
+
+		self.$navContainer.on('click', function (e) {
+			if ( self.navIsOpened ) {
+				e.stopPropagation();
+			}
+		})
+	};
+
+	// close popup on click to "Esc" key
+	ExtraPopup.prototype.closeNavOnEsc = function () {
+		var self = this;
+
+		$(document).keyup(function(e) {
+			if (self.navIsOpened && self.closeEsc && e.keyCode == 27) {
+				self.closeNav();
+			}
+		});
+	};
+
+	// open nav
+	ExtraPopup.prototype.openNav = function() {
+
+		// console.log("openNav");
+
+		var self = this,
+			$html = self.$mainContainer,
+			$navContainer = self.$navContainer,
+			$buttonMenu = self.$btnMenu,
+			_animationSpeed = self._animateSpeedOverlay,
+			$staggerItems = self.$staggerItems;
+
+		$buttonMenu.addClass(self.modifiers.active);
+		$html.addClass(self.modifiers.openStart);
+
+		$navContainer.css({
+			'-webkit-transition-duration': '0s',
+			'transition-duration': '0s'
+		});
+
+		TweenMax.to($navContainer, _animationSpeed / 1000, {
+			xPercent: 0,
+			autoAlpha: 1,
+			ease: Cubic.easeOut,
+			onComplete: function () {
+				$html.addClass(self.modifiers.opened);
+
+				noScroll();
+			}
+		});
+
+		TweenMax.staggerTo($staggerItems, 0.85, {
+			// autoAlpha:1,
+			// scale:1,
+			// y: 0,
+			ease:Cubic.easeOut
+		}, 0.1);
+
+
+		if (self.overlayBoolean) {
+			self.toggleOverlay();
+		}
+
+		self.navIsOpened = true;
+	};
+
+	// close nav
+	ExtraPopup.prototype.closeNav = function() {
+
+		// console.log("closeNav");
+
+		var self = this,
+			$html = self.$mainContainer,
+			$navContainer = self.$navContainer,
+			$buttonMenu = self.$btnMenu,
+			_animationSpeed = self._animateSpeedOverlay,
+			_mediaWidth = self._mediaWidth;
+
+		$html.removeClass(self.modifiers.opened);
+		$html.removeClass(self.modifiers.openStart);
+		$buttonMenu.removeClass(self.modifiers.active);
+
+		if (self.overlayBoolean) {
+			self.toggleOverlay(false);
+		}
+
+		TweenMax.to($navContainer, _animationSpeed / 1000, {
+			xPercent: -100,
+			ease: Cubic.easeOut,
+			onComplete: function () {
+				if (_mediaWidth === null || window.innerWidth < _mediaWidth) {
+					self.preparationAnimation();
+				}
+
+				TweenMax.set($navContainer, {
+					autoAlpha: 0
+				});
+
+				canScroll();
+			}
+		});
+
+		self.navIsOpened = false;
+	};
+
+	// preparation element before animation
+	ExtraPopup.prototype.preparationAnimation = function() {
+		var self = this;
+
+		var $navContainer = self.$navContainer,
+			$staggerItems = self.$staggerItems;
+
+		// console.log('preparationAnimation');
+
+		TweenMax.set($navContainer, {
+			xPercent: -100,
+			autoAlpha: 0,
+			onComplete: function () {
+				$navContainer.show(0);
+			}
+		});
+		TweenMax.set($staggerItems, {
+			// autoAlpha: 0,
+			// scale: 0.6,
+			// y: 50
+		});
+	};
+
+	// clearing inline styles
+	ExtraPopup.prototype.clearStyles = function() {
+		var self = this;
+			// $btnMenu = self.$btnMenu,
+			// $navContainer = self.$navContainer,
+			// $staggerItems = self.$staggerItems;
+
+		//clear on horizontal resize
+		if (self.closeOnResize === true) {
+
+			$(window).on('debouncedresize', function () {
+				self.closeNav();
+				// if (self.navIsOpened) {
+				// 	if (!$btnMenu.is(':visible')) {
+				// 		$navContainer.attr('style', '');
+				// 		$staggerItems.attr('style', '');
+				// 	} else {
+				// 		self.closeNav();
+				// 	}
+				// }
+			});
+
+		}
+	};
+
+	window.ExtraPopup = ExtraPopup;
+
+}(jQuery));
+
+/**
+ * !extra popup nav for device
+ * */
+function navForDevice(){
+	var siteMapSelector = '.sidebar';
+	if($(siteMapSelector).length){
+
+		new ExtraPopup({
+			navContainer: siteMapSelector,
+			navMenu: '.nav-js',
+			btnMenu: '.btn-nav-js',
+			btnMenuClose: '.btn-nav-close-js',
+			navMenuItem: '.nav-js > li',
+			closeOnResize: true,
+			mediaWidth: 992,
+			animationSpeed: 300,
+			overlayAppendTo: '.wrapper > .max-wrap',
+			overlayAlpha: 0.35,
+			overlayIndex: 80
+		});
+
+	}
+}
+/*extra popup nav for device end*/
 
 /**
  * !footer at bottom
@@ -566,13 +945,14 @@ function footerBottom() {
 $(document).ready(function () {
 	placeholderInit();
 	printShow();
-	fixedHeader();
+	// fixedHeader();
 	objectFitFix();
 	languageBehavior();
 	showFormSearch();
 	menuAccordionInit();
 	blockedScrollOnPage();
 	slidersInit();
+	navForDevice();
 
 	footerBottom();
 });

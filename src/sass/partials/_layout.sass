@@ -23,6 +23,9 @@
 	margin-left: $sidebar-width
 	background-color: white
 
+	+media('<tablet-lg')
+		margin-left: 0
+
 .cross
 	position: relative
 	min-height: 100vh
@@ -72,6 +75,9 @@
 		+media('<desktop-sm')
 			margin-left: 0
 
+		+media('<tablet-sm')
+			+margin-vertical($layout-space-horizontal-sm, $layout-space-horizontal-sm*2)
+
 /*content end*/
 
 .header
@@ -85,6 +91,10 @@
 	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15)
 	transition-property: box-shadow, border-color, height, padding-top
 	transition-duration: $animation-speed
+
+	+media('<tablet-lg')
+		width: 100%
+		max-width: none
 
 .footer
 	position: relative
@@ -102,5 +112,8 @@
 
 	+media('<desktop-md')
 		+padding-horizontal($layout-space-horizontal-md)
+
+	+media('<tablet-sm')
+		+padding-horizontal($layout-space-horizontal-sm)
 
 /*LAYOUT end*/

@@ -1,0 +1,132 @@
+// после открытия попапа, нужно забокировать скролл
+.nav-opened-before
+	+scroll-blocked
+
+//+media('>=tablet-lg') // скрывать оверлей попапа, после определенной ширины. нужно сделать универсальней
+	.nav-overlay
+		visibility: hidden !important
+		opacity: 0 !important
+
+/*button menu*/
+.btn-nav
+	//<a href="#" class="btn-map-site"><i></i><span>Текс кнопки</span></a>
+	$btn-bg: white
+	$btn-color: black
+	$btn-min-height: 70px
+	$btn-space: 12px
+	$btn-lines-width: 22px
+	$btn-lines-height: 2px
+	$btn-lines-space: 5px
+	$btn-lines-color: $btn-color
+
+	=line-style()
+		height: $btn-lines-height
+		width: $btn-lines-width
+		background: $btn-lines-color
+
+	=btn-font()
+		font: 300 14px/1.4 $font-norm
+		letter-spacing: normal
+
+	=transition()
+		transition-property: transform, box-shadow, background-color
+		transition-duration: $animation-speed
+		transition-timing-function: ease-in-out
+
+	float: left
+	display: none
+	text-decoration: none
+	color: $text-color
+	background: $btn-bg
+	min-width: 70px
+	+font(0, 0)
+	letter-spacing: -4px
+	white-space: nowrap
+	box-shadow: 1px 0 0 #d9d9d9
+
+	.no-touchevents &:hover
+		background-color: #f2f2f2
+
+	+media('<tablet-lg')
+		display: inline-block
+
+	&:before
+		//content: ''
+		//display: inline-block
+		//height: $btn-min-height
+		//min-height: 100%
+		//vertical-align: middle
+		+pseudo($pos: relative)
+		+ratio(1, 1)
+
+	> span
+		+btn-font
+		display: inline-block
+		vertical-align: middle
+		position: relative
+		max-width: 98%
+		white-space: nowrap
+		margin: 0 $btn-space
+		+antialiased
+		+hide-text
+
+	> i
+		//display: inline-block
+		//vertical-align: middle
+		//position: relative
+		//margin-left: $btn-space
+		backface-visibility: hidden
+		position: absolute
+		left: 50%
+		top: 50%
+		margin-top: -#{round($btn-lines-height/2)}
+		margin-left: -#{round($btn-lines-width/2)}
+		+line-style
+
+		&:before, &:after
+			content: ''
+			position: absolute
+			left: 0
+			backface-visibility: hidden
+			+line-style
+
+		//first line menu
+		&:before
+			top: -#{$btn-lines-height + $btn-lines-space}
+
+		//third line menu
+		&:after
+			top: #{$btn-lines-height + $btn-lines-space}
+
+/*button menu end*/
+
+/*button menu close*/
+.btn-menu-close
+	//<a href="#" class="btn-menu-close"><i></i><span>Закрыть</span></a>
+	@extend .btn-nav
+	float: none
+	position: absolute
+	left: auto
+	top: 0
+	right: 0
+	z-index: 150
+	background: none
+	min-width: 60px
+	height: $header-height
+	box-shadow: none
+	border-left: 1px solid rgba(0, 0, 0, 0.3)
+
+	> i
+		background-color: transparent
+
+		&:before
+			top: 0
+			background-color: white
+			transform: rotate(-45deg)
+
+		&:after
+			top: 0
+			background-color: white
+			transform: rotate(45deg)
+
+/*button menu close end*/
