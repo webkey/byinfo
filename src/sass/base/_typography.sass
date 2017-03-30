@@ -479,6 +479,32 @@ table
 	margin: 0 0 $bottom-space $bottom-space
 	max-width: 50%
 
+.img-group
+	margin: 0 -4px $bottom-space
+	font-size: 0
+	letter-spacing: -4px
+
+	img
+		display: inline-block
+		vertical-align: middle
+		width: 33.28%
+		font-size: $font-size
+		letter-spacing: normal
+		border: 4px solid white
+		backface-visibility: hidden
+
+		+media('<desktop-lg')
+			width: 49.98%
+
+		+media('<desktop-sm')
+			width: 32.28%
+
+		+media('<mobile-lg')
+			width: 49.98%
+
+		+media('<mobile-md')
+			width: 100%
+
 @media only screen and (max-width: 767px)
 	.imgl, .imgr
 		float: none
