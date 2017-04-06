@@ -1,3 +1,9 @@
+@import ../utils/variables
+@import ../utils/mixins
+@import ../utils/functions
+@import ../utils/placeholders
+@import ../../../src/libs/include-media/dist/_include-media
+
 /*slider*/
 // arrows
 .slick-arrow
@@ -22,14 +28,17 @@
 
 	.no-touchevents &:hover
 		opacity: 1
-		background: none
 
-	&.slick-disabled, .no-touchevents &.slick-disabled
+	&.slick-disabled
 		opacity: 0.25 !important
-		pointer-events: none
+		cursor: default
 
 		&::before, &::after //clean default style
-			opacity: 1
+			border-color: white !important
+			opacity: 1 !important
+
+		&::before
+			transform: scale(0.95) !important
 
 	&:before
 		+pseudo()

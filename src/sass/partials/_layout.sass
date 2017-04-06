@@ -1,4 +1,14 @@
 /*LAYOUT*/
+body
+	.no-touchevents &::-webkit-scrollbar
+		width: 8px
+
+	.no-touchevents &::-webkit-scrollbar-track
+		background-color: #f3f3f3
+
+	.no-touchevents &::-webkit-scrollbar-thumb
+		background-color: lightgray
+
 .wrapper
 	overflow: hidden
 	position: relative
@@ -44,6 +54,15 @@
 	max-width: calc((#{$page-max-width} - #{$sidebar-width})/2)
 	overflow-x: hidden
 	overflow-y: auto
+
+	.no-touchevents &::-webkit-scrollbar
+		width: 8px
+
+	.no-touchevents &::-webkit-scrollbar-track
+		background-color: #f3f3f3
+
+	.no-touchevents &::-webkit-scrollbar-thumb
+		background-color: lightgray
 
 	+media('<desktop-sm')
 		position: relative
