@@ -1,4 +1,4 @@
-@@include('_head.tpl', { "title": "Главная", "pageClass": "" })
+@@include('_head.tpl', { "title": "Главная", "pageClass": "home-page" })
 <div class="wrapper">
 	<div class="max-wrap">
 		<div class="page">
@@ -6,6 +6,7 @@
 				@@include('_header.tpl')
 				<!--CONTENT-->
 				<div class="main">
+					@@include('_slider-strip.tpl')
 					<div class="visual">
 						@@include('_slider-visual.tpl')
 					</div>

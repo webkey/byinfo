@@ -1,0 +1,96 @@
+@import ../utils/variables
+@import ../utils/mixins
+
+/* slider strip
+.slider-strip
+	+padding-horizontal(40px)
+
+.slider-strip-item
+	position: relative
+	height: $info-strip-height
+	padding: 23px 30px
+	background-color: white
+	background-size: cover
+
+	&.has-bg
+		&::before
+			+pseudo()
+			left: 0
+			top: 0
+			+size(100%)
+			background-color: rgba(0, 0, 0, 0.2)
+
+.slider-strip-item__content,
+.slider-strip-item__footer
+	position: relative
+	z-index: 2
+
+.slider-strip-item__content
+	padding-bottom: 20px
+
+.slider-strip-item__date
+	display: block
+	+font-italic
+	color: #b2b2b2
+	+font(14px, 16px)
+	margin-bottom: 14px
+
+	.has-bg &
+		color: white
+
+	&:last-child
+		margin-bottom: 0
+
+.slider-strip-item__title
+	+font(14px, 16px)
+	color: $link-color
+	max-height: 80px
+	overflow: hidden
+
+	.has-bg &
+		color: white
+
+	a
+		text-decoration: underline
+		color: inherit
+		padding-top: 0.5em
+
+.slider-strip-item__source
+	+font(14px, 16px)
+	color: #32393f
+	display: block
+
+	.has-bg &
+		color: white
+
+	a
+		text-decoration: underline
+		color: inherit
+		padding-top: 0.5em
+
+.slider-strip
+	.slick-arrow
+		opacity: 1
+		visibility: visible
+
+		&::after, &::before
+			opacity: 1
+
+		&::before
+			content: none
+
+		&::after
+			border-color: black
+
+	.slick-prev,
+	.slick-next
+		height: 100%
+		width: 40px
+
+	.slick-prev
+		left: -40px
+
+	.slick-next
+		right: -40px
+
+/* slider strip end

@@ -1182,3 +1182,30 @@ div.cselect
 
 	h5
 		+font(1.8rem, 1.5)
+
+
+/* tooltip
+.tooltip
+	position: fixed
+	z-index: 9999
+	width: 254px
+	background-color: white
+	padding: 17px 20px
+	margin-top: 20px
+	margin-left: -127px
+	+font(14px, 20px)
+	color: #32393f
+	box-shadow: 5px 5px 35px rgba(0, 0, 0, 0.21)
+
+	&::before
+		+pseudo()
+		left: 50%
+		bottom: 100%
+		margin-left: -9px
+		+triangle(top, white, 9px, 1)
+
+.tooltip-inner
+	max-height: 200px
+	overflow: hidden
+
+/* tooltip end

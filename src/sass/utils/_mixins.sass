@@ -619,3 +619,56 @@ $grid-space: 20px !default
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
 // ППРИМЕСИ ДЛЯ ПРИНТ ВЕРСИИ конец
 // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+
+// =============================================================================
+// Triangle helper mixin
+// =============================================================================
+/// Примесь созадает простую стрелку-треугольник
+/// Применяется к псевдоэлементу
+/// Triangle helper mixin
+/// @param {Direction} $direction - Triangle direction, either `top`, `right`, `bottom` or `left`
+/// @param {Color} $color [currentcolor] - Triangle color
+/// @param {Length} $size [1em] - Triangle size
+/// @param {Number} $kef [1em] - Higher-to-base ratio
+///
+/// @example Sass - Использование
+///
+/// .foo::before
+/// 	+triangle(bottom)
+/// 	position: absolute
+/// 	left: 50%
+/// 	bottom: 100%
+///
+/// @example css - Вывод CSS
+///
+/// .foo::before {
+/// 	width: 0;
+/// 	height: 0;
+/// 	content: '';
+/// 	z-index: 2;
+/// 	border-top: 1.5em solid tomato;
+/// 	border-left: 1em solid transparent;
+/// 	border-right: 1em solid transparent;
+/// 	position: absolute;
+/// 	left: 50%;
+/// 	bottom: 100%;
+/// }
+=triangle($direction, $color: tomato, $size: 1em, $kef: 1.5)
+	@if not index(top right bottom left, $direction)
+		@error "Direction must be either `top`, `right`, `bottom` or `left`."
+
+	//+pseudo()
+	width: 0
+	height: 0
+	z-index: 2
+	border-#{opposite-direction($direction)}: (round($size * $kef)) solid $color
+
+	$perpendicular-borders: $size solid transparent
+
+	@if $direction == top or $direction == bottom
+		border-left: $perpendicular-borders
+		border-right: $perpendicular-borders
+	@else if $direction == right or $direction == left
+		border-bottom: $perpendicular-borders
+		border-top: $perpendicular-borders

@@ -53,11 +53,15 @@
 			box-shadow: -1px 0 0 $border-color
 			text-decoration: none
 			text-align: center
-			color: $text-color
+			//color: $text-color
+			color: white
 			+transition
 
 			.no-touchevents &:hover
 				background-color: #f2f2f2
+
+				path
+					fill: $text-color
 
 			& > *
 				display: inline-block
@@ -72,7 +76,8 @@
 			& > div
 				display: inline-block
 				vertical-align: middle
-				color: $text-color
+				//color: $text-color
+				color: white
 				+transition
 
 			svg
@@ -82,7 +87,8 @@
 				+transition
 
 			path
-				fill: $text-color
+				//fill: $text-color
+				fill: white
 				+transition
 
 			& > span
@@ -114,12 +120,23 @@
 		line-height: 24px
 		letter-spacing: 0.1em
 		color: $text-color
+		//color: white
 		text-transform: uppercase
+		+transition()
+
+	& > a span
+		color: white
 
 	.no-touchevents &:hover > a,
 	.no-touchevents & a:hover,
 	&.lang-opened > a
 		background-color: #f2f2f2
+		color: $text-color
+
+	.no-touchevents &:hover > a span,
+	.no-touchevents & a:hover span,
+	&.lang-opened > a span
+		color: $text-color
 
 	@at-root .lang__list
 		list-style: none
@@ -172,10 +189,13 @@
 	height: $header-height
 	z-index: 95
 	+font-bold
-	font-size: 1.4rem
+	font-family: $font-alt
+	letter-spacing: 0.1em
+	font-size: 1.6rem
 	text-transform: uppercase
 	text-decoration: none
-	color: $sidebar-bg-color
+	//color: $sidebar-bg-color
+	color: white
 
 	+media('<tablet-lg')
 		text-align: center
@@ -196,7 +216,8 @@
 		vertical-align: middle
 		max-width: calc(100% - 8px)
 		text-decoration: none
-		color: $sidebar-bg-color
+		//color: $sidebar-bg-color
+		color: white
 
 		&:hover
 			text-decoration: none

@@ -10,11 +10,13 @@
 	background-color: $sidebar-bg-color
 	overflow: hidden
 
+	//+media('<desktop-lg')
 	+media('<tablet-lg')
 		padding-top: $header-height
 		display: none
 		z-index: 100
 
+	//+media('>=desktop-lg')
 	+media('>=tablet-lg')
 		opacity: 1 !important
 		visibility: visible !important

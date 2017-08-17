@@ -33,6 +33,7 @@ body
 	margin-left: $sidebar-width
 	background-color: white
 
+	//+media('<desktop-lg')
 	+media('<tablet-lg')
 		margin-left: 0
 
@@ -55,6 +56,9 @@ body
 	overflow-x: hidden
 	overflow-y: auto
 
+	.home-page &
+		top: $header-height + $info-strip-height
+
 	.no-touchevents &::-webkit-scrollbar
 		width: 8px
 
@@ -65,14 +69,33 @@ body
 		background-color: lightgray
 
 	+media('<desktop-sm')
-		position: relative
-		top: auto
-		bottom: auto
-		width: auto
-		max-width: none
-		overflow: visible
+		&, .home-page &
+			position: relative
+			top: auto
+			bottom: auto
+			width: auto
+			max-width: none
+			overflow: visible
 
 /*visual section end*/
+
+/* slider strip
+.slider-strip
+	position: fixed
+	top: $header-height
+	height: $info-strip-height
+	width: calc((100% - #{$sidebar-width})/2)
+	max-width: calc((#{$page-max-width} - #{$sidebar-width})/2)
+	border-right: 1px solid $border-color
+	z-index: 2
+
+	+media('<desktop-sm')
+		top: auto
+		position: relative
+		width: auto
+		max-width: none
+
+/* slider strip end
 
 /*content*/
 .content
@@ -106,7 +129,7 @@ body
 	width: calc(100% - #{$sidebar-width})
 	max-width: #{$page-max-width - $sidebar-width}
 	height: $header-height
-	background-color: white
+	background-color: $sidebar-bg-color
 	box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15)
 	transition-property: box-shadow, border-color, height, padding-top
 	transition-duration: $animation-speed

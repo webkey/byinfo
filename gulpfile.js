@@ -161,9 +161,7 @@ gulp.task('copyImgToDist', function () {
 
 gulp.task('build', ['cleanDistFolder', 'htmlCompilation', 'copyImgToDist', 'sassCompilation', 'mergeCssLibs', 'createCustomModernizr', 'copyLibsScriptsToJs'], function () {
 
-	gulp.src([ // Переносим css в продакшен
-		'src/css/*.css'
-	])
+	gulp.src('src/css/*.css') // Переносим css в продакшен
 		.pipe(gulp.dest('dist/css'));
 
 	gulp.src('src/fonts/**/*') // Переносим шрифты в продакшен

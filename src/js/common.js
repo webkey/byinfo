@@ -422,25 +422,25 @@ function menuAccordionInit() {
 function blockedScrollOnPage() {
 	$(window).on('load debouncedresize', function () {
 		if (Modernizr.objectfit) { // shame: detect ie 11 and older
-			if (window.innerWidth > 1279) {
-				$('.visual').on('mouseenter', function () {
-					noScroll();
-				}).on('mouseleave', function () {
-					canScroll();
-				});
-			} else {
-				$('.visual').on('mouseenter', function () {
-					canScroll();
-				})
-			}
+			// if (window.innerWidth > 1279) {
+			// 	$('.visual').on('mouseenter', function () {
+			// 		noScroll();
+			// 	}).on('mouseleave', function () {
+			// 		canScroll();
+			// 	});
+			// } else {
+			// 	$('.visual').on('mouseenter', function () {
+			// 		canScroll();
+			// 	})
+			// }
 
-			if (window.innerWidth > 992) {
-				$('.sidebar').on('mouseenter', function () {
-					noScroll();
-				}).on('mouseleave', function () {
-					canScroll();
-				});
-			}
+			// if (window.innerWidth > 992) {
+			// 	$('.sidebar').on('mouseenter', function () {
+			// 		noScroll();
+			// 	}).on('mouseleave', function () {
+			// 		canScroll();
+			// 	});
+			// }
 		}
 	})
 }
@@ -520,6 +520,75 @@ function slidersInit() {
 							fade: false,
 							speed: 300,
 							autoplay: false
+						}
+					}
+				]
+			});
+
+		});
+	}
+
+	/*slider strip*/
+	var $sliderStrip = $('.slider-strip-js');
+
+	if($sliderStrip.length){
+
+		$sliderStrip.each(function () {
+			var $currentSlider = $(this);
+			var dur = 200;
+
+			$currentSlider.slick({
+				fade: false,
+				speed: dur,
+				slidesToShow: 3,
+				slidesToScroll: 3,
+				// initialSlide: 2,
+				// lazyLoad: 'ondemand',
+				infinite: false,
+				dots: false,
+				arrows: true,
+
+				responsive: [
+					{
+						breakpoint: 1920,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 1280,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3
+						}
+					},
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 992,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3
+						}
+					},
+					{
+						breakpoint: 768,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							slidesToShow: 1,
+							slidesToScroll: 1
 						}
 					}
 				]
@@ -896,7 +965,8 @@ function navForDevice(){
 			btnMenuClose: '.btn-nav-close-js',
 			navMenuItem: '.nav-js > li',
 			closeOnResize: true,
-			mediaWidth: 992,
+			// mediaWidth: 992,
+			mediaWidth: 1600,
 			animationSpeed: 300,
 			overlayAppendTo: '.wrapper > .max-wrap',
 			overlayAlpha: 0.35,
@@ -906,6 +976,37 @@ function navForDevice(){
 	}
 }
 /*extra popup nav for device end*/
+
+/**
+ * tooltip initial
+ */
+function tooltipInitial() {
+	var $tplTooltip = $('<div class="tooltip"><div class="tooltip-inner"></div></div>');
+	var timeout;
+
+	$('.slider-strip-item').on('mouseenter', function () {
+		if(DESKTOP) {
+			var $currentElem = $(this);
+
+			var $containerCurrentElem = $currentElem.closest('.slider-strip');
+
+			clearTimeout(timeout);
+
+			timeout = setTimeout(function () {
+				$tplTooltip.clone().appendTo($containerCurrentElem).find('.tooltip-inner').html($currentElem.data('title')).end().css('left', $currentElem.offset().left + $currentElem.outerWidth()/2).hide(0).fadeIn(200);
+			}, 600);
+		}
+	}).on('mouseleave', function () {
+		if(DESKTOP) {
+			clearInterval(timeout);
+
+			$('.tooltip').fadeOut(100, function () {
+				$(this).remove();
+			});
+		}
+	});
+}
+ /*tooltip initial*/
 
 /**
  * !footer at bottom
@@ -952,6 +1053,7 @@ $(document).ready(function () {
 	blockedScrollOnPage();
 	slidersInit();
 	navForDevice();
+	tooltipInitial();
 
 	footerBottom();
 });
