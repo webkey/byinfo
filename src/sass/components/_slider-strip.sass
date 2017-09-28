@@ -3,14 +3,32 @@
 
 /* slider strip
 .slider-strip
-	+padding-horizontal(40px)
+	position: relative
+	//+padding-horizontal(40px)
+	margin-bottom: $bottom-space
+
+	font-size: 0
+	line-height: 0
+	letter-spacing: -4px
+
+	&:last-child
+		margin-bottom: 0
 
 .slider-strip-item
 	position: relative
-	height: $info-strip-height
+	//height: $info-strip-height
 	padding: 23px 30px
 	background-color: white
 	background-size: cover
+
+	display: inline-block
+	vertical-align: top
+	width: 50%
+	letter-spacing: normal
+	+font($font-size, $line-height)
+
+	+media('<mobile-md')
+		width: 100%
 
 	&.has-bg
 		&::before
@@ -18,7 +36,7 @@
 			left: 0
 			top: 0
 			+size(100%)
-			background-color: rgba(0, 0, 0, 0.2)
+			background-color: rgba(0, 0, 0, 0.35)
 
 .slider-strip-item__content,
 .slider-strip-item__footer
@@ -44,7 +62,7 @@
 .slider-strip-item__title
 	+font(14px, 16px)
 	color: $link-color
-	max-height: 80px
+	height: 80px
 	overflow: hidden
 
 	.has-bg &
@@ -59,6 +77,7 @@
 	+font(14px, 16px)
 	color: #32393f
 	display: block
+	+truncate(100%)
 
 	.has-bg &
 		color: white

@@ -47,6 +47,11 @@ $slider-inner-line-height: (2.4/1.6)
 		transform: translate(-50%, -50%)
 		object-fit: cover
 
+		&[src$="preloader.svg"]
+			object-fit: contain
+			width: auto
+			height: auto
+
 .slider-inner-item__content
 	position: absolute
 	left: 0

@@ -359,7 +359,7 @@ table
 		color: $color-table-text
 		padding: 8px 10px
 		box-sizing: border-box
-		border-color: black
+		border-color: #dcdcdc
 
 .#{$user-content}
 	table
@@ -1186,7 +1186,10 @@ div.cselect
 
 /* tooltip
 .tooltip
-	position: fixed
+	//position: fixed
+	position: absolute
+	left: 50%
+	top: 100%
 	z-index: 9999
 	width: 254px
 	background-color: white
@@ -1204,7 +1207,15 @@ div.cselect
 		margin-left: -9px
 		+triangle(top, white, 9px, 1)
 
-.tooltip-inner
+	img
+		display: block
+		margin-bottom: 10px
+
+	p
+		margin: 0
+		padding: 0
+
+//.tooltip-inner
 	max-height: 200px
 	overflow: hidden
 

@@ -1,6 +1,6 @@
 <a href="#" class="slider-inner-item">
 	<div class="slider-inner-item__img">
-		<img src="@@src" alt="image description"/>
+		<img src="img/preloader.svg" data-lazy="@@src" alt="image description"/>
 	</div>
 	<div class="slider-inner-item__content">
 		<div class="slider-inner-item__heading">@@heading</div>

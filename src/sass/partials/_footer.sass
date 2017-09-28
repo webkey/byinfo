@@ -38,6 +38,53 @@ $footer-line-height: 3.0/1.6
 
 /*footer layout end*/
 
+/*footer gov*/
+.govbanners
+	// before slide load
+	white-space: nowrap
+	overflow: hidden
+	// before slide load end
+
+	&.slick-initialized, .no-js &
+		// after slide load
+		white-space: normal
+		overflow: visible
+	// after slide load end
+
+	.slick-prev
+		left: 30px
+
+	.slick-next
+		right: 30px
+
+.govbanners
+	&.slick-dotted.slick-slider
+		margin-bottom: 50px
+
+	.slick-track
+		display: flex
+		align-items: center
+
+	.slick-slide
+		// before slide load
+		float: none
+		display: inline-block
+		vertical-align: top
+		// before slide load end
+		padding: 0 #{round($grid-space/2)}
+
+	&.slick-initialized .slick-slide
+		// after slide load
+		float: left
+		display: block
+		// after slide load end
+
+	img
+		width: auto !important
+		height: auto !important
+		
+/*footer gov end*/
+
 /*footer bottom*/
 .footer-bottom
 	color: $text-color

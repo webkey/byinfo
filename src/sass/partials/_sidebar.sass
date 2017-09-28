@@ -50,13 +50,22 @@
 /*logo*/
 .logo
 	display: block
-	background: url(../../img/logo.png) no-repeat center center
-	background-size: 229px
+	position: relative
 	width: 229px
 	height: 55px
-	text-indent: -9999px
+	//text-indent: -9999px
 	overflow: hidden
 	margin: 0 2rem 0 0
+
+	&::before
+		+pseudo()
+		top: 50%
+		left: 40px
+		background: url(../../img/logo.png) no-repeat left center
+		background-size: auto 55px
+		width: 100px
+		height: 55px
+		margin-top: -27px
 
 	.sidebar &
 		position: fixed
@@ -78,6 +87,23 @@
 	a
 		display: block
 		height: 100%
+		color: white
+		text-transform: uppercase
+		+font(14px, 16px)
+		letter-spacing: 0.05em
+
+		&::before
+			content: ''
+			display: inline-block
+			vertical-align: middle
+			height: 100%
+
+		span
+			display: inline-block
+			vertical-align: middle
+			width: calc(100% - 10px)
+			padding-left: 139px
+			pointer-events: none
 
 /*logo end*/
 

@@ -508,6 +508,9 @@ function slidersInit() {
 				infinite: false ,
 				dots: false,
 				arrows: true,
+				draggable: false,
+				swipe: false,
+				touchMove: false,
 
 				autoplay: true,
 				autoplaySpeed: 6000,
@@ -586,6 +589,94 @@ function slidersInit() {
 					},
 					{
 						breakpoint: 480,
+						settings: {
+							slidesToShow: 1,
+							slidesToScroll: 1
+						}
+					}
+				]
+			});
+
+		});
+	}
+
+	/*gov slider*/
+	var $govSlider = $('.govbanners');
+
+	if ($govSlider.length) {
+
+		$govSlider.each(function () {
+			var $currentSlider = $(this);
+			var dur = 200;
+
+			$currentSlider.on('init', function (event, el) {
+				// $(el.$slides).matchHeight({
+				// 	byRow: true, property: 'height', target: null, remove: false
+				// });
+			}).slick({
+				fade: false,
+				speed: dur,
+				slidesToShow: 4,
+				slidesToScroll: 4,
+				// autoplay: true,
+				// autoplaySpeed: 5000,
+				// initialSlide: 2,
+				// lazyLoad: 'ondemand',
+				infinite: false,
+				dots: true,
+				arrows: false,
+				responsive: [
+					{
+						breakpoint: 1600,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3
+						}
+					},
+					{
+						breakpoint: 1280,
+						settings: {
+							slidesToShow: 5,
+							slidesToScroll: 5
+						}
+					},
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 4,
+							slidesToScroll: 4
+						}
+					},
+					{
+						breakpoint: 992,
+						settings: {
+							slidesToShow: 5,
+							slidesToScroll: 5
+						}
+					},
+					{
+						breakpoint: 768,
+						settings: {
+							slidesToShow: 4,
+							slidesToScroll: 4
+						}
+					},
+					{
+						breakpoint: 640,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3
+						}
+					},
+					{
+						breakpoint: 480,
+						settings: {
+							slidesToShow: 2,
+							slidesToScroll: 2
+						}
+					},
+					{
+						breakpoint: 320,
 						settings: {
 							slidesToShow: 1,
 							slidesToScroll: 1
@@ -980,7 +1071,7 @@ function navForDevice(){
 /**
  * tooltip initial
  */
-function tooltipInitial() {
+function tooltipInitial_old() {
 	var $tplTooltip = $('<div class="tooltip"><div class="tooltip-inner"></div></div>');
 	var timeout;
 
@@ -994,6 +1085,32 @@ function tooltipInitial() {
 
 			timeout = setTimeout(function () {
 				$tplTooltip.clone().appendTo($containerCurrentElem).find('.tooltip-inner').html($currentElem.data('title')).end().css('left', $currentElem.offset().left + $currentElem.outerWidth()/2).hide(0).fadeIn(200);
+			}, 600);
+		}
+	}).on('mouseleave', function () {
+		if(DESKTOP) {
+			clearInterval(timeout);
+
+			$('.tooltip').fadeOut(100, function () {
+				$(this).remove();
+			});
+		}
+	});
+}
+function tooltipInitial() {
+	var $tplTooltip = $('<div class="tooltip"><div class="tooltip-inner"></div></div>');
+	var timeout;
+
+	$('.slider-strip-item').on('mouseenter', function () {
+		if(DESKTOP) {
+			var $currentElem = $(this);
+
+			var $containerCurrentElem = $currentElem.closest('.slider-strip');
+
+			clearTimeout(timeout);
+
+			timeout = setTimeout(function () {
+				$tplTooltip.clone().appendTo($currentElem).find('.tooltip-inner').html($currentElem.data('title')).end().hide(0).fadeIn(200);
 			}, 600);
 		}
 	}).on('mouseleave', function () {
